@@ -24,6 +24,24 @@
 <body>
     <div id="app">
         <!-- html 코드는 id가 app인 태그 인에서 작업 -->
+         <table>
+            <tr>
+                <th>교수번호</th>
+                <th>이름</th>
+                <th>아이디</th>
+                <th>직급</th>
+                <th>급여 </th>
+                <th>삭제</th>
+            </tr>
+            <tr v-for="item in list">
+                <td>{{item.PROFNO}}</td>
+                <td>{{item.NAME}}</td>
+                <td>{{item.ID}}</td>
+                <td>{{item.POSITION}}</td>   
+                <td>{{item.PAY}}</td>
+                <td><button @click="fnRemove(item.PROFNO)">삭제</button></td>
+            </tr>
+        </table>
         
     </div>
 </body>
@@ -34,20 +52,41 @@
         data() {
             return {
                 // 변수 - (key : value)
+                list : []
             };
         },
         methods: {
             // 함수(메소드) - (key : function())
-            fnEmpList: function () {
+            fnProfList: function () {
                 let self = this;
                 let param = {};
                 $.ajax({
-                    url: "http://localhost:3009/",
+                    url: "http://localhost:3009/prof/list",
                     dataType: "json",
                     type: "GET",
                     data: param,
                     success: function (data) {
-
+                        console.log(data);
+                        self.list = data.list;
+                    }
+                });
+            },
+            fnRemove : function(profNo){
+                let self = this;
+                if(!confirm("정말 삭제 하겠습니까?")){
+                    return;
+                }
+                
+                $.ajax({
+                    url: "http://localhost:3009/prof/delete",
+                    dataType: "json",
+                    type: "GET",
+                    data: {profNo : profNo},
+                    success: function (data) {
+                        if(data.result == "success"){
+                            alert("삭제되었습니다!");
+                            self.fnProfList();
+                        }
                     }
                 });
             }
@@ -55,6 +94,7 @@
         mounted() {
             // 처음 시작할 때 실행되는 부분
             let self = this;
+            self.fnProfList();
         }
     });
 

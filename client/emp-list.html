@@ -32,16 +32,21 @@
                 <th>급여</th>
                 <th>부서</th>
                 <th>부서이름</th>
+                <th>수정</th>
+                <th>삭제</th>
             </tr>
             <tr v-for="item in list">
                 <td>{{item.EMPNO}}</td>
                 <td>{{item.ENAME}}</td>
                 <td>{{item.JOB}}</td>
-                <td>{{item.SAL}}</td>
+                <td>{{item.SAL}}</td>   
                 <td>{{item.DEPTNO}}</td>
                 <td>{{item.DNAME}}</td>
+                <td><button @click="fnEdit(item.EMPNO)">수정</button></td>
+                <td><button @click="fnRemove(item.EMPNO)">삭제</button></td>
             </tr>
         </table>
+        <a href="emp-edit.html"><button>추가</button></a>
     </div>
 </body>
 </html>
@@ -68,6 +73,29 @@
                         self.list = data.empList;
                     }
                 });
+            },
+            fnRemove : function(empNo){
+                let self = this;
+                if(!confirm("정말 삭제 하겠습니까?")){
+                    return;
+                }
+                
+                $.ajax({
+                    url: "http://localhost:3009/emp/delete",
+                    dataType: "json",
+                    type: "GET",
+                    data: {empNo : empNo},
+                    success: function (data) {
+                        if(data.result == "success"){
+                            alert("삭제되었습니다!");
+                            self.fnEmpList();
+                        }
+                    }
+                });
+            },
+            fnEdit : function(empNo){
+                location.href="emp-edit.html?empNo="+empNo;
+
             }
         }, // methods
         mounted() {
