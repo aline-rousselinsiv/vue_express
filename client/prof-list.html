@@ -33,6 +33,7 @@
          <div id="container">
             <table>
                 <tr>
+                    <th>선택</th>
                     <th>교수번호</th>
                     <th>이름</th>
                     <th>아이디</th>
@@ -42,6 +43,7 @@
                     <th>삭제</th>
                 </tr>
                 <tr v-for="item in list">
+                    <td><input type="checkbox" :value="item.PROFNO" v-model="selectItems"></td>
                     <td>{{item.PROFNO}}</td>
                     <td>
                         <a href="javascript:;" @click="fnView(item.PROFNO)">{{item.NAME}}</a>
@@ -53,6 +55,9 @@
                     <td><button @click="fnRemove(item.PROFNO)">삭제</button></td>
                 </tr>
             </table>
+            <div>
+                <button @click="fnRemoveAll">선택삭제</button>
+            </div>
          </div>
     </div>
 </body>
@@ -63,7 +68,8 @@
         data() {
             return {
                 // 변수 - (key : value)
-                list : []
+                list : [],
+                selectItems : []
             };
         },
         methods: {
@@ -107,6 +113,25 @@
             },
             fnView: function(profNo){
                 window.open(`prof-view.html?profNo=${profNo}`, "view", "width=500 height=500");
+            },
+            fnRemoveAll: function(){
+                let self = this;
+                if(!confirm("정말 삭제 하겠습니까?")){
+                    return;
+                }
+                $.ajax({
+                    url: "http://localhost:3009/prof/deleteAll",
+                    dataType: "json",
+                    type: "GET",
+                    data: {removeList : self.selectItems},
+                    traditional : true,
+                    success: function (data) {
+                        if(data.result == "success"){
+                            alert("삭제되었습니다!");
+                            self.fnProfList();
+                        }
+                    }
+                });
             }
         }, // methods
         mounted() {

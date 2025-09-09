@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8.4.7/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8.4.7/swiper-bundle.min.js"></script>
+</head>
+<body>
+    <div class="swiper-container">
+	<div class="swiper-wrapper">
+		<div class="swiper-slide">슬라이드 1</div>
+		<div class="swiper-slide">슬라이드 2</div>
+		<div class="swiper-slide">슬라이드 3</div>
+	</div>
+	<div class="swiper-pagination"></div>
+	<div class="swiper-button-next"></div>
+	<div class="swiper-button-prev"></div>
+</div>
+</body>
+</html>
+<script>
+    const swiper = new Swiper('.swiper-container', {
+        // 기본 옵션 설정
+        loop: true, // 반복
+        autoplay: {
+            delay: 2500,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
