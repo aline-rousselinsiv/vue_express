@@ -37,9 +37,13 @@ app.get('/', (req, res) => {
 });
 
 app.get('/emp/list', async (req, res) => {
-  const { } = req.query;
+  const { deptNo } = req.query;
+  let query = "";
+  if(deptNo!= "" && deptNo != null){
+    query = `WHERE E.DEPTNO = ${deptNo} `;
+  }
   try {
-    const result = await connection.execute(`SELECT E.*, DNAME FROM EMP E INNER JOIN DEPT D ON E.DEPTNO = D.DEPTNO ORDER BY SAL DESC`);
+    const result = await connection.execute(`SELECT E.*, DNAME FROM EMP E INNER JOIN DEPT D ON E.DEPTNO = D.DEPTNO ` + query + `ORDER BY SAL DESC`);
     const columnNames = result.metaData.map(column => column.name);
     // 쿼리 결과를 JSON 형태로 변환
     const rows = result.rows.map(row => {
@@ -120,6 +124,48 @@ app.get('/prof/delete', async (req, res) => {
   }
 });
 
+app.get('/prof/info', async (req, res) => {
+  const { profNo } = req.query;
+  try {
+    const result = await connection.execute(`SELECT P.*, PROFNO "profNo", NAME "name", ID "id", POSITION "position", PAY "pay" FROM PROFESSOR P WHERE PROFNO = ${profNo}`);
+    const columnNames = result.metaData.map(column => column.name);
+    // 쿼리 결과를 JSON 형태로 변환
+    const rows = result.rows.map(row => {
+      // 각 행의 데이터를 컬럼명에 맞게 매핑하여 JSON 객체로 변환
+      const obj = {};
+      columnNames.forEach((columnName, index) => {
+        obj[columnName] = row[index];
+      });
+      return obj;
+    });
+    res.json({
+        result : "success",
+        info : rows[0]
+    });
+  } catch (error) {
+    console.error('Error executing query', error);
+    res.status(500).send('Error executing query');
+  }
+});
+
+app.get('/prof/update', async (req, res) => {
+  const { name, id, position, pay, profNo } = req.query;
+
+  try {
+    await connection.execute(
+      `UPDATE PROFESSOR SET NAME = :name, ID = :id, POSITION = :position, PAY = :pay WHERE PROFNO = :profNo`,
+      [name, id, position, pay, profNo],
+      { autoCommit: true }
+    );
+    res.json({
+        result : "success"
+    });
+  } catch (error) {
+    console.error('Error executing insert', error);
+    res.status(500).send('Error executing insert');
+  }
+});
+
 app.get('/emp/insert', async (req, res) => {
   const { empNo, ename, job, selectDept } = req.query;
 
@@ -141,7 +187,12 @@ app.get('/emp/insert', async (req, res) => {
 app.get('/emp/info', async (req, res) => {
   const { empNo } = req.query;
   try {
-    const result = await connection.execute(`SELECT E.*, EMPNO "empNo", ENAME "ename", JOB "job", DEPTNO "selectDept" FROM EMP E WHERE EMPNO = ${empNo}`);
+    const result = await connection.execute(
+      `SELECT E.*, DNAME, EMPNO "empNo", ENAME "eName", JOB "job", E.DEPTNO "selectDept" `
+      + `FROM EMP E `
+      + `INNER JOIN DEPT D ON E.DEPTNO = D.DEPTNO `
+      + `WHERE EMPNO = ${empNo}`
+    );
     const columnNames = result.metaData.map(column => column.name);
     // 쿼리 결과를 JSON 형태로 변환
     const rows = result.rows.map(row => {
@@ -159,6 +210,24 @@ app.get('/emp/info', async (req, res) => {
   } catch (error) {
     console.error('Error executing query', error);
     res.status(500).send('Error executing query');
+  }
+});
+
+app.get('/emp/update', async (req, res) => {
+  const { ename, job, selectDept, empNo } = req.query;
+
+  try {
+    await connection.execute(
+      `UPDATE EMP SET ENAME = :ename, JOB = :job, DEPTNO = :selectDept WHERE EMPNO = :empNo`,
+      [ename, job, selectDept, empNo],
+      { autoCommit: true }
+    );
+    res.json({
+        result : "success"
+    });
+  } catch (error) {
+    console.error('Error executing insert', error);
+    res.status(500).send('Error executing insert');
   }
 });
 

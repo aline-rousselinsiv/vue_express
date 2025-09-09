@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        #app {
+            margin: 100px;
+        }
+        table, tr, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px 10px;
+            text-align: center;
+        }
+        th {
+            background-color: beige;
+            width: 100px;
+            height: 35px;
+        }
+        td {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- html 코드는 id가 app인 태그 인에서 작업 -->
+        <table>
+            <tr>
+                <th>교수번호</th>
+                <td>{{info.PROFNO}}</td>
+            </tr>
+            <tr>
+                <th>이름</th>
+                <td>{{info.NAME}}</td>
+            </tr>
+            <tr>
+                <th>직급</th>
+                <td>{{info.POSITION}}</td>
+            </tr>
+            <tr>
+                <th>급여</th>
+                <td>{{info.PAY}}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                // 변수 - (key : value)
+                profNo : "",
+                info : {}
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnInfo: function () {
+                let self = this;
+                $.ajax({
+                    url: "http://localhost:3009/prof/info",
+                    dataType: "json",
+                    type: "GET",
+                    data: {profNo : self.profNo},
+                    success: function (data) {
+                        console.log(data);
+                        self.info = data.info;
+                    }
+                });
+            },
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+            let self = this;
+            const queryParams = new URLSearchParams(window.location.search);
+            self.profNo = queryParams.get('profNo') || ''; 
+
+            self.fnInfo();
+        }
+    });
+
+    app.mount('#app');
+</script>
