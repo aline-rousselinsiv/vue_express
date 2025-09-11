@@ -282,11 +282,12 @@ app.get('/emp/deleteAll', async (req, res) => {
 });
 
 app.get('/board/list', async (req, res) => {
-  const {  } = req.query;
+  const { pageSize, offset } = req.query;
   
   try {
     const result = await connection.execute(
-      `SELECT B.*, TO_CHAR(CDATETIME, 'YYYY-MM-DD') AS CDATE FROM TBL_BOARD B`
+      `SELECT B.*, TO_CHAR(CDATETIME, 'YYYY-MM-DD') AS CDATE FROM TBL_BOARD B `
+      + `OFFSET ${offset} ROWS FETCH NEXT ${pageSize} ROWS ONLY`
     );
     const columnNames = result.metaData.map(column => column.name);
     // 쿼리 결과를 JSON 형태로 변환
@@ -298,10 +299,15 @@ app.get('/board/list', async (req, res) => {
       });
       return obj;
     });
+
+    const count = await connection.execute(
+      `SELECT COUNT(*) FROM TBL_BOARD`
+    );
     // 리턴
     res.json({
         result : "success",
-        boardList : rows
+        boardList : rows,
+        count : count.rows[0][0]
     });
   } catch (error) {
     console.error('Error executing query', error);
