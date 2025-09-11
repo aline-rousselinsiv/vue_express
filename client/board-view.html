@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+    <style>
+        #container{
+            width: 100%;
+            margin: 50px;
+        }
+        table, tr, td, th{
+            border : 1px solid black;
+            border-collapse: collapse;
+            padding : 5px 10px;
+            text-align: center;
+        }
+        tr {
+            height: 50px;
+        }
+        th{
+            width: 100px;
+            background-color: beige;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- html 코드는 id가 app인 태그 안에서 작업 -->
+         <div id="container">
+            <table >
+            <tr>
+                <th>번호</th>
+                <td>{{info.BOARDNO}}</td>
+            </tr>
+            <tr>
+                <th>제목</th>
+                <td>{{info.TITLE}}</td>
+            </tr>
+            <tr>
+                <th>작성자</th>
+                <td>{{info.USERID}}</td>
+            </tr>
+            <tr>
+                <th>작성일</th>
+                <td>{{info.CDATE}}</td>
+            </tr>
+            <tr>
+                <th>내용2</th>
+                <td><div v-html="info.CONTENTS"></div></td>
+            </tr>
+         </table>
+         </div>
+    </div>
+</body>
+</html>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                // 변수 - (key : value)
+                info : {},
+                boardNo : ""
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnInfo: function () {
+                let self = this;
+                $.ajax({
+                    url: "http://localhost:3009/board/info",
+                    dataType: "json",
+                    type: "GET",
+                    data: {boardNo: self.boardNo},
+                    success: function (data) {
+                        console.log(data);
+                        self.info = data.info;
+                    }
+                });
+            }
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+            let self = this;
+            const queryParams = new URLSearchParams(window.location.search);
+            self.boardNo = queryParams.get('boardNo') || ''; 
+            self.fnInfo();
+        }
+    });
+
+    app.mount('#app');
+</script>
