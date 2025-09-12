@@ -1,0 +1,183 @@
+/* header{
+    width: 100%;
+    height: 150px;
+    background-color: aqua;
+    border: none;
+    margin-bottom: none;
+} */
+html {
+    background-color: #e4e2e2;
+}
+#main {
+    width: 900px;
+    height: 700px;
+    border: none;
+    background-color: white;
+    margin: auto;
+    margin-top: 100px;
+    padding-top: 1px;
+    border-radius: 4%;
+    box-shadow: 0px 2px 20px 2px grey;
+    font-family: "Urbanist", sans-serif;
+    position: relative;
+}
+h1{
+    margin-top: 30px;
+    margin-left: 30px;
+}
+.search-bar{
+    position: relative;
+    display: inline-block;
+}
+.search-bar input{
+    height: 35px;
+    width: 210px;
+    margin-left: 30px;
+    padding-left: 40px;
+    box-sizing: border-box;
+    border: none;
+    background-color: #eeecec;
+    font-family: "Urbanist", sans-serif;
+}
+.search-bar .search-icon{
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+
+}
+table {
+    font-size: 18px;
+    border-collapse: collapse;
+    width:800px;
+    margin: 50px;
+    margin-left: 50px;
+}
+td, th {
+    border-bottom: 1px solid #afafaf;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding-right: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+}
+td{
+    font-size: 15px;
+}
+.add-project{
+    position: relative;
+    display: inline-block;
+}
+.add-project #add{
+    color: #8a8a8a;
+    position: absolute;
+    margin-left: 90px;
+    top: 10%;
+    width: 200px;
+}
+.add-project a{
+    text-decoration: none;
+    color: black;
+}
+#plus-icon{
+    margin-left: 55px;
+    font-size: larger;
+}
+.delete-btn input{
+    font-family: "Urbanist", sans-serif;
+    font-size: 15px;
+    height: 35px;
+    width: 180px;
+    border: 1px solid #b8b8b8;
+    border-radius: 5px;
+    background-color: #fcfdfd;
+    position: absolute;
+    bottom: 30px;
+    right: 50px;
+}
+.delete-btn input:hover{
+    font-size: 16px;
+    background-color: #b8b8b8;
+}
+
+/* login page styles */
+
+#login{
+    width: 500px;
+    height: 700px;
+    border: none;
+    background-color: white;
+    margin: auto;
+    margin-top: 100px;
+    padding-top: 1px;
+    border-radius: 4%;
+    box-shadow: 0px 2px 20px 2px grey;
+    font-family: "Urbanist", sans-serif;
+}
+#login .sign-in, #login .sign-up {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+h2 {
+    text-align: center;
+}
+.sign-in input, .sign-up input {
+    font-family: "Urbanist", sans-serif;
+    font-size: 15px;
+    height: 35px;
+    width: 200px;
+    border: 1px solid #b8b8b8;
+    border-radius: 5px;
+    background-color: #fcfdfd;
+    bottom: 30px;
+    right: 50px;
+    margin-top: 15px;
+    text-align: center;
+}
+.sign-in button, .sign-up button {
+    font-family: "Urbanist", sans-serif;
+    height: 35px;
+    width: 100px;
+    border-radius: 17px;
+    border: 1px dotted grey;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.sign-up{
+    margin-top: 20px;
+}
+.pwd-regex {
+    font-size: 10px;
+    font-weight: bold;
+    color: red;
+}
+/* new project page */
+table{
+    font-size: 20px;
+}
+#new-project td, th {
+    border-bottom: 1px solid #afafaf;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding-right: 50px;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    text-align: left;
+}
+td input:not([type="radio"]) {
+    width: 400px;
+    height: 35px;
+    /* text-align: left; */
+    border-radius: 5px;
+    border: 1px solid grey;
+    background-color: #f1f1f1;
+}
+#priority-btn label {
+    margin-right: 50px;
+    cursor: pointer;
+}

@@ -3,28 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="Styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <style>
-        table, tr, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-            padding: 5px 10px;
-            text-align: center;
-        }
-        th {
-            background-color: beige;
-        }
-        tr:nth-child(even) {
-            background-color: azure;
-        }
-    </style>
+    <title>My Projects</title>
 </head>
 <body>
     <div id="app">
-        <!-- html 코드는 id가 app인 태그 인에서 작업 -->
-        
+        <header></header>
+        <div id="main">
+            <h1>MY PROJECTS</h1>
+            <div class="search-bar">
+                <input type="text" placeholder="Search">
+                <span class="search-icon fa-solid fa-magnifying-glass"></span>
+            </div>
+            <table>
+                <tr>
+                    <th>Select</th>
+                    <th>Project</th>
+                    <th>Priority</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="selectProject">
+                    </td>
+                    <td>placeholder</td>
+                    <td>placeholder</td>
+                    <td>placeholder</td>
+                    <td>placeholder</td>
+                    <td>placeholder</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="selectProject">
+                    </td>
+                    <td>placeholder</td>
+                    <td>placeholder</td>
+                    <td>placeholder</td>
+                    <td>placeholder</td>
+                    <td>placeholder</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="selectProject">
+                    </td>
+                    <td>placeholder</td>
+                    <td>placeholder</td>
+                    <td>placeholder</td>
+                    <td>placeholder</td>
+                    <td>placeholder</td>
+                </tr>
+            </table>
+            <div class="add-project">
+                <a href="javascript:;" @click="fnAddProject()">
+                    <div id="plus-icon" class="fa-solid fa-plus"></div>
+                    <div id="add">Add new project</div>
+                </a>
+            </div>
+            <div class="delete-btn">
+                <input type="button" value="Delete Project" @click="fnDelete">
+            </div>
+        </div>
     </div>
 </body>
 </html>
@@ -34,11 +80,12 @@
         data() {
             return {
                 // 변수 - (key : value)
+                
             };
         },
         methods: {
             // 함수(메소드) - (key : function())
-            fnEmpList: function () {
+            fnProjectList: function () {
                 let self = this;
                 let param = {};
                 $.ajax({
@@ -50,11 +97,19 @@
 
                     }
                 });
+            },
+            fnAddProject : function(projNum){
+                location.href="Project-add.html?projNo="+projNum;
+            },
+            fnDelete : function (){
+                alert(confirm("Deleting project. Do you confirm?"));
+                self.fnProjectList();
             }
         }, // methods
         mounted() {
             // 처음 시작할 때 실행되는 부분
             let self = this;
+            self.fnProjectList();
         }
     });
 

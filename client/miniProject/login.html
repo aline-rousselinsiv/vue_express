@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Login</title>
+</head>
+<body>
+    <div id="app">
+        <div id="login">
+            <div class="sign-in">
+                <h2>Login</h2>
+                <div><input type="text" placeholder="enter userId" v-model="userId"></div>
+                <div><input type="password" placeholder="enter password" v-model="password"></div>
+                <button @click="fnLogin">Sign in</button>
+            </div>
+            
+            <div class="sign-up">
+                <h2>Create Account</h2>
+                <div><input type="text" placeholder="userId" v-model="userId2"></div>
+                <div><input type="text" placeholder="name" v-model="name"></div>
+                <div><input type="text" placeholder="email address" v-model="email"></div>
+                <div><input type="password" placeholder="create password" v-model="pwd"></div>
+                <div class="pwd-regex" v-if="warning">* Password must at least include 8 characters.</div>
+                <div><input type="password" placeholder="confirm password" v-model="pwd2" ref="confirmPwd"></div>
+                <div class="pwd-regex" v-if="warning2">* The password is different.</div>
+                <button @click="fnSignUp">Sign up</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                // 변수 - (key : value)
+                userId : "",
+                password : "",
+                userId2 : "",
+                name : "",
+                email : "",
+                pwd : "",
+                pwd2 : "",
+                warning: false,
+                warning2 : false,
+                warning3 : false
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnLogin: function () {
+                let self = this;
+                let param = {
+                    userId : this.userId,
+                    password : this.password
+                };
+                $.ajax({
+                    url: "http://localhost:3009/login",
+                    dataType: "json",
+                    type: "GET",
+                    data: param,
+                    success: function (data) {
+                        console.log(data);
+                        if(data.length > 0){
+                            sessionStorage.setItem("sessionId", data[0].USERID);
+                            location.href="project-view.html";
+                        } else {
+                            alert("Please check your ID/password.")
+                        }
+                    }
+                });
+            },
+            fnSignUp : function (){
+                let self = this;
+                let param = {
+                    userId2 : this.userId2,
+                    name : this.name,
+                    pwd : this.pwd,
+                    email : this.email
+                };
+                if(self.pwd.length < 8){
+                    self.warning = true;
+                    return;
+                } else {
+                    self.warning = false;
+                    this.$refs.confirmPwd.focus();
+                }
+                if(self.pwd != self.pwd2){
+                    self.warning2 = true;
+                } else {
+                    self.warning2 = false;
+                }
+                $.ajax({
+                    url: "http://localhost:3009/signup",
+                    dataType: "json",
+                    type: "GET",
+                    data: param,
+                    success: function (data) {
+                        alert("Succesfully signed up !");
+                    }
+                });
+            }
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+            let self = this;
+        }
+    });
+
+    app.mount('#app');
+</script>

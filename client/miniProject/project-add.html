@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>New Project</title>
+</head>
+<body>
+     <div id="app">
+        <header></header>
+        <div id="main">
+            <h1>NEW PROJECT</h1>
+                <div id="new-project">
+                    <table>
+                    <tr>
+                        <th>Priority</th>
+                        <td id="priority-btn">
+                            <label>
+                                <input type="radio" name="priority">
+                                High
+                            </label>   
+                            <label>
+                                <input type="radio" name="priority">
+                                Normal
+                            </label>
+                            <label>
+                                <input type="radio" name="priority">
+                                High
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Project</th>
+                        <td>
+                            <input type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Due Date</th>
+                        <td>
+                            <input type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Tasks</th>
+                        <td><span id="plus-icon" class="fa-solid fa-plus"></span>Add new task</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>    
+</body>
+</html>
