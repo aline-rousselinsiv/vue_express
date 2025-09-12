@@ -10,108 +10,81 @@
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <title>My Projects</title>
+    <title>My Project's Details</title>
 </head>
 <body>
     <div id="app">
-        <header></header>
-        <div id="main">
-            <h1>MY PROJECTS</h1>
-            <div class="search-bar">
-                <input type="text" placeholder="Search">
-                <span class="search-icon fa-solid fa-magnifying-glass"></span>
-            </div>
-            <table>
+    <header></header>
+    <div id="main">
+        <h1>VIEW PROJECT</h1>
+        <div id="view-project">
+            <table class="view-project">
                 <tr>
-                    <th>Select</th>
-                    <th>Project</th>
                     <th>Priority</th>
+                    <td>{{projectInfo.PRIORITY}}</td>
+                </tr>
+                <tr>
+                    <th>Project</th>
+                    <td>{{projectInfo.PROJECT_NAME}}</td>
+                </tr>
+                <tr>
                     <th>Due Date</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="selectProject">
-                    </td>
-                    <td>placeholder</td>
-                    <td>placeholder</td>
-                    <td>placeholder</td>
-                    <td>placeholder</td>
-                    <td>placeholder</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="selectProject">
-                    </td>
-                    <td>placeholder</td>
-                    <td>placeholder</td>
-                    <td>placeholder</td>
-                    <td>placeholder</td>
-                    <td>placeholder</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name="selectProject">
-                    </td>
-                    <td>placeholder</td>
-                    <td>placeholder</td>
-                    <td>placeholder</td>
-                    <td>placeholder</td>
-                    <td>placeholder</td>
+                    <td>{{projectInfo.DUEDATE}}</td>
                 </tr>
             </table>
-            <div class="add-project">
-                <a href="javascript:;" @click="fnAddProject()">
-                    <div id="plus-icon" class="fa-solid fa-plus"></div>
-                    <div id="add">Add new project</div>
-                </a>
-            </div>
-            <div class="delete-btn">
-                <input type="button" value="Delete Project" @click="fnDelete">
+            <div>Tasks</div>
+            <div id="tasks">
+                <li>
+                    <ol>{{projectInfo.TASK_NAME}}</ol>
+                    <ol></ol>
+                    <ol></ol>
+                </li>
             </div>
         </div>
     </div>
 </body>
 </html>
-
 <script>
     const app = Vue.createApp({
         data() {
             return {
                 // 변수 - (key : value)
-                
+                sessionId : "",
+                projectName : "",
+                projectInfo : {}
             };
         },
         methods: {
             // 함수(메소드) - (key : function())
-            fnProjectList: function () {
+            fnProjectInfo: function () {
                 let self = this;
-                let param = {};
+                let param = {
+                    userId : self.sessionId,
+                    projectName : self.projectName
+                };
                 $.ajax({
-                    url: "http://localhost:3009/",
+                    url: "http://localhost:3009/project/info",
                     dataType: "json",
                     type: "GET",
                     data: param,
                     success: function (data) {
-
+                        self.projectInfo = data.info;
+                        console.log(self.projectInfo);
                     }
                 });
-            },
-            fnAddProject : function(projNum){
-                location.href="Project-add.html?projNo="+projNum;
-            },
-            fnDelete : function (){
-                alert(confirm("Deleting project. Do you confirm?"));
-                self.fnProjectList();
             }
         }, // methods
         mounted() {
             // 처음 시작할 때 실행되는 부분
             let self = this;
-            self.fnProjectList();
+            const queryParams = new URLSearchParams(window.location.search);
+            this.projectName = queryParams.get("projectName");
+            this.sessionId = sessionStorage.getItem("sessionId");
+            self.fnProjectInfo();
+
         }
     });
 
     app.mount('#app');
 </script>
+    

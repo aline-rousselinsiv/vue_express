@@ -404,6 +404,58 @@ app.get('/signup', async (req, res) => {
   }
 });
 
+app.get('/project/list', async (req, res) => {
+  const { userId } = req.query;
+  try {
+    const result = await connection.execute(`SELECT P.*, TO_CHAR(DUE_DATE, 'YYYY-MM-DD') AS DUEDATE, TO_CHAR(CREATED_AT, 'YYYY-MM-DD') AS CREATEDDATE FROM TABLE_PROJECT P WHERE USERID = :userId`,
+      [userId]);
+    const columnNames = result.metaData.map(column => column.name);
+    // 쿼리 결과를 JSON 형태로 변환
+    const rows = result.rows.map(row => {
+      // 각 행의 데이터를 컬럼명에 맞게 매핑하여 JSON 객체로 변환
+      const obj = {};
+      columnNames.forEach((columnName, index) => {
+        obj[columnName] = row[index];
+      });
+      return obj;
+    });
+    res.json({
+        result : "success",
+        list : rows
+    });
+  } catch (error) {
+    console.error('Error executing query', error);
+    res.status(500).send('Error executing query');
+  }
+});
+
+app.get('/project/info', async (req, res) => {
+  const { userId, projectName } = req.query;
+  try {
+    const result = await connection.execute(
+      `SELECT P.*, TO_CHAR(DUE_DATE, 'YYYY-MM-DD') AS DUEDATE, TO_CHAR(CREATED_AT, 'YYYY-MM-DD') AS CREATEDDATE FROM TABLE_PROJECT P  WHERE USERID = :userId AND PROJECT_NAME = :projectName`,
+      [userId, projectName]
+    );
+    const columnNames = result.metaData.map(column => column.name);
+    // 쿼리 결과를 JSON 형태로 변환
+    const rows = result.rows.map(row => {
+      // 각 행의 데이터를 컬럼명에 맞게 매핑하여 JSON 객체로 변환
+      const obj = {};
+      columnNames.forEach((columnName, index) => {
+        obj[columnName] = row[index];
+      });
+      return obj;
+    });
+    res.json({
+        result : "success",
+        info : rows[0]
+    });
+  } catch (error) {
+    console.error('Error executing query', error);
+    res.status(500).send('Error executing query');
+  }
+});
+
 
 // 서버 시작
 app.listen(3009, () => {

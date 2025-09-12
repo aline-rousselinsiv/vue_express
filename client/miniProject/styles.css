@@ -5,6 +5,8 @@
     border: none;
     margin-bottom: none;
 } */
+
+/* project list page*/
 html {
     background-color: #e4e2e2;
 }
@@ -52,6 +54,12 @@ table {
     width:800px;
     margin: 50px;
     margin-left: 50px;
+}
+table a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
 }
 td, th {
     border-bottom: 1px solid #afafaf;
@@ -180,4 +188,17 @@ td input:not([type="radio"]) {
 #priority-btn label {
     margin-right: 50px;
     cursor: pointer;
+}
+
+/* view project page*/
+
+#view-project  div:not([id="task"]){
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 50px;
+    margin-top: -20px;
+    float: left;
+}
+#view-project #task {
+    margin-left: 100px;
 }
