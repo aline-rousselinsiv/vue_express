@@ -244,10 +244,24 @@ input, button{
 .add-remove {
     margin-left: 230px;
     margin-top: -30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.add-remove div{
     float: left;
 }
+.add-remove div input{
+    width: 370px;
+}
 .add-remove button {
-    float: right;
+    border: none;
+    margin-left: 15px;
+    font-size: 15px;
+}
+.add-remove button:hover {
+    color: #333333;
+    cursor: pointer;
 }
 
 /* view project page*/

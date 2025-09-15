@@ -53,19 +53,19 @@
                         <td>
                             <div id="add-btn">
                                 <span id="plus-icon" class="fa-solid fa-plus"></span>
-                                <button @click="fnAddTask">Add new task</button>
+                                <button @click="fnAddTask" :disabled="tasks.length >= maxTasks">Add new task</button>
                             </div>
                         </td>
                     </tr>
                 </table>
                 <div class="add-remove">
                     <div v-for="(task, index) in tasks" :key="index">
-                        <input type="text" placeholder="Enter new task." v-model="task.name">
+                        <input type="text" placeholder="Enter new task" v-model="task.name">
+                        <button @click="fnRemoveTask(index)"><span class="fa-solid fa-trash"></span></button>
                     </div>
-                    <button @click="fnRemoveTask(index)">❌</button>
                 </div>
                 <div class="create-btn">
-                    <input type="button" value="Create Project" @click="fnAddProject">
+                    <input type="button" value="Create Project" @click="fnAddProject" >
                 </div>
             </div>
         </div>
@@ -81,41 +81,79 @@
                 dueDate : "",
                 priority : "",
                 sessionId : "",
-                tasks: []
+                tasks: [],
+                maxTasks : 5
             };
         },
         methods: {
             // 함수(메소드) - (key : function())
             fnAddProject: function () {
                 let self = this;
-                if(self.priority == ""){
-                    alert("Please select a priority for you project.")
+
+                // Validate
+                if (!self.priority) {
+                    alert("Please select a priority for your project.");
                     return;
                 }
-                if(self.projectName == ""){
+                if (!self.projectName) {
                     alert("Please write a name for your project.");
                     return;
                 }
+
+                // Insert project
                 let param = {
-                    projectName : self.projectName,
-                    dueDate : self.dueDate,
-                    priority : self.priority,
-                    userId : self.sessionId
+                    projectName: self.projectName,
+                    dueDate: self.dueDate,
+                    priority: self.priority,
+                    userId: self.sessionId
                 };
+
                 $.ajax({
                     url: "http://localhost:3009/project/add",
                     dataType: "json",
                     type: "GET",
                     data: param,
                     success: function (data) {
-                        alert("Succesfully created !");
-                        location.href="project-list.html";
+                        if (data.result === "success") {
+                            let projectNum = data.projectNum;
+
+                            // Insert tasks if there are any
+                            if (self.tasks.length > 0) {
+                                let requests = self.tasks.map(task => {
+                                    return $.ajax({
+                                        url: "http://localhost:3009/task/add",
+                                        dataType: "json",
+                                        type: "GET",
+                                        data: {
+                                            projectNum: projectNum,
+                                            taskName: task.name
+                                        }
+                                    });
+                                });
+
+                                // Wait for all tasks to finish before redirect
+                                $.when(...requests).done(function () {
+                                    alert("Project and tasks successfully created!");
+                                    location.href = "project-list.html";
+                                });
+                            } else {
+                                // No tasks, just redirect
+                                alert("Project successfully created!");
+                                location.href = "project-list.html";
+                            }
+                        }
+                    },
+                    error: function (err) {
+                        console.error("Error adding project", err);
+                        alert("Failed to create project.");
                     }
                 });
             },
             fnAddTask() {
                 let self = this;
-                self.tasks.push({ name: "" }); // add new empty task object
+                if (this.tasks.length < this.maxTasks) {
+                    this.tasks.push({ name: "" });
+                }
             },
             fnRemoveTask: function(index){
                 let self = this;

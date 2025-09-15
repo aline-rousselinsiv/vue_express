@@ -512,20 +512,49 @@ app.get('/project/add', async (req, res) => {
   const { userId, projectName, dueDate, priority } = req.query;
 
   try {
-    await connection.execute(
+      const result = await connection.execute(
       `INSERT INTO TABLE_PROJECT(PROJECT_NUM, USERID, PROJECT_NAME, DUE_DATE, CREATED_AT, UPDATED_AT, PRIORITY) ` 
-      + `VALUES (PROJECT_SEQ.NEXTVAL, :userId, :projectName, :dueDate, SYSDATE, SYSDATE, :priority)`,
-      [ userId, projectName, dueDate, priority ],
+      + `VALUES (PROJECT_SEQ.NEXTVAL, :userId, :projectName, :dueDate, SYSDATE, SYSDATE, :priority) `
+      + `RETURNING PROJECT_NUM INTO :newProjectNum`, // <== returning the project number directly
+      {
+        userId,
+        projectName,
+        dueDate,
+        priority,
+        newProjectNum: { dir: oracledb.BIND_OUT, type: oracledb.NUMBER }
+      },
       { autoCommit: true }
     );
+
+    const projectNum = result.outBinds.newProjectNum[0]; // <== retrieving the project number
+
     res.json({
-        result : "success"
+        result : "success",
+        projectNum
     });
   } catch (error) {
     console.error('Error executing insert', error);
     res.status(500).send('Error executing insert');
   }
 });
+
+app.get('/task/add', async (req, res) => {
+  const { projectNum, taskName } = req.query;
+
+  try {
+    await connection.execute(
+      `INSERT INTO TABLE_TASK(TASK_NUM, PROJECT_NUM, TASK_NAME, STATUS, CREATED_AT, UPDATED_AT) `
+       +`VALUES (TASK_SEQ.NEXTVAL, :projectNum, :taskName, 'Pending', SYSDATE, SYSDATE)`,
+      {projectNum, taskName},
+      { autoCommit: true }
+    );
+    res.json({ result: "success" });
+  } catch (error) {
+    console.error("Error inserting task", error);
+    res.status(500).send("Error inserting task");
+  }
+});
+
 
 app.get('/project/delete', async (req, res) => {
   const { projectNum } = req.query;
