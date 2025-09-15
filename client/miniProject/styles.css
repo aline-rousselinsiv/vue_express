@@ -176,27 +176,78 @@ h2 {
 table{
     font-size: 20px;
 }
+#new-project {
+    margin-top: -40px;
+}
 #new-project td, th {
     border-bottom: 1px solid #afafaf;
     border-top: none;
     border-left: none;
     border-right: none;
     padding-right: 50px;
-    padding-top: 30px;
-    padding-bottom: 10px;
+    padding-top: 25px;
+    padding-bottom: 15px;
     text-align: left;
 }
 td input:not([type="radio"]) {
     width: 400px;
     height: 35px;
-    /* text-align: left; */
     border-radius: 5px;
     border: 1px solid grey;
     background-color: #f1f1f1;
 }
 #priority-btn label {
     margin-right: 50px;
+    margin-top: 10px;
     cursor: pointer;
+}
+label {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+}
+.create-btn input{
+    font-family: "Urbanist", sans-serif;
+    font-size: 15px;
+    height: 35px;
+    width: 180px;
+    border: 1px solid #b8b8b8;
+    border-radius: 5px;
+    background-color: #fcfdfd;
+    position: absolute;
+    bottom: 30px;
+    right: 50px;
+}
+.create-btn input:hover{
+    font-size: 16px;
+    background-color: #b8b8b8;
+}
+#add-btn {
+    margin-left: -60px;
+}
+#add-btn button{
+    color: #8a8a8a;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+}
+#add-btn button:hover {
+    color: black;
+}
+input, button{
+    font-family: "Urbanist", sans-serif;
+    height: 35px;
+    border: 1px solid #b8b8b8;
+    border-radius: 5px;
+    background-color: #fcfdfd;
+}
+.add-remove {
+    margin-left: 230px;
+    margin-top: -30px;
+    float: left;
+}
+.add-remove button {
+    float: right;
 }
 
 /* view project page*/

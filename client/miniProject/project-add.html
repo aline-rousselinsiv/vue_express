@@ -17,22 +17,22 @@
         <header></header>
         <div id="main">
             <h1>NEW PROJECT</h1>
-                <div id="new-project">
-                    <table>
+            <div id="new-project">
+                <table>
                     <tr>
                         <th>Priority</th>
                         <td id="priority-btn">
                             <label>
                                 <input type="radio" name="priority" value="High" v-model="priority">
-                                High
+                                <span class="prio">High</span>
                             </label>   
                             <label>
                                 <input type="radio" name="priority" value="Normal" v-model="priority">
-                                Normal
+                                <span class="prio">Normal</span>
                             </label>
                             <label>
                                 <input type="radio" name="priority" value="Low" v-model="priority">
-                                Low
+                                <span class="prio">Low</span>
                             </label>
                         </td>
                     </tr>
@@ -50,12 +50,23 @@
                     </tr>
                     <tr>
                         <th>Tasks</th>
-                        <td><span id="plus-icon" class="fa-solid fa-plus"></span>Add new task</td>
+                        <td>
+                            <div id="add-btn">
+                                <span id="plus-icon" class="fa-solid fa-plus"></span>
+                                <button @click="fnAddTask">Add new task</button>
+                            </div>
+                        </td>
                     </tr>
                 </table>
-                <div class="delete-btn">
-                <input type="button" value="Create Project" @click="fnAddProject">
-            </div>
+                <div class="add-remove">
+                    <div v-for="(task, index) in tasks" :key="index">
+                        <input type="text" placeholder="Enter new task." v-model="task.name">
+                    </div>
+                    <button @click="fnRemoveTask(index)">❌</button>
+                </div>
+                <div class="create-btn">
+                    <input type="button" value="Create Project" @click="fnAddProject">
+                </div>
             </div>
         </div>
     </div>    
@@ -69,13 +80,22 @@
                 projectName: "",
                 dueDate : "",
                 priority : "",
-                sessionId : ""
+                sessionId : "",
+                tasks: []
             };
         },
         methods: {
             // 함수(메소드) - (key : function())
             fnAddProject: function () {
                 let self = this;
+                if(self.priority == ""){
+                    alert("Please select a priority for you project.")
+                    return;
+                }
+                if(self.projectName == ""){
+                    alert("Please write a name for your project.");
+                    return;
+                }
                 let param = {
                     projectName : self.projectName,
                     dueDate : self.dueDate,
@@ -92,6 +112,14 @@
                         location.href="project-list.html";
                     }
                 });
+            },
+            fnAddTask() {
+                let self = this;
+                self.tasks.push({ name: "" }); // add new empty task object
+            },
+            fnRemoveTask: function(index){
+                let self = this;
+                self.tasks.splice(index, 1); // remove by index
             }
         }, // methods
         mounted() {
@@ -101,6 +129,5 @@
             console.log(self.sessionId);
         }
     });
-
     app.mount('#app');
 </script>
