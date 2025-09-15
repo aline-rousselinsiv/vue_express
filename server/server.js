@@ -405,10 +405,35 @@ app.get('/signup', async (req, res) => {
 });
 
 app.get('/project/list', async (req, res) => {
-  const { userId } = req.query;
+  const { userId, keyword } = req.query;
   try {
-    const result = await connection.execute(`SELECT P.*, TO_CHAR(DUE_DATE, 'YYYY-MM-DD') AS DUEDATE, TO_CHAR(CREATED_AT, 'YYYY-MM-DD') AS CREATEDDATE FROM TABLE_PROJECT P WHERE USERID = :userId`,
-      [userId]);
+    // Base SQL query
+    let sql = `
+      SELECT P.*, 
+             TO_CHAR(DUE_DATE, 'YYYY-MM-DD') AS DUEDATE, 
+             TO_CHAR(CREATED_AT, 'YYYY-MM-DD') AS CREATEDDATE
+      FROM TABLE_PROJECT P
+      WHERE USERID = :userId
+    `;
+    // Parameters array for binding
+    let params = [userId];
+
+    // Add search filter if keyword exists
+    if (keyword && keyword.trim() !== "") {
+      sql += `
+        AND (
+          LOWER(P.PROJECT_NAME) LIKE :kw
+          OR LOWER(P.PRIORITY) LIKE :kw
+          OR LOWER(P.STATUS) LIKE :kw
+        )
+      `;
+      params.push(`%${keyword.toLowerCase()}%`);
+      params.push(`%${keyword.toLowerCase()}%`);
+      params.push(`%${keyword.toLowerCase()}%`);
+    }
+
+    const result = await connection.execute(sql, params);
+
     const columnNames = result.metaData.map(column => column.name);
     // 쿼리 결과를 JSON 형태로 변환
     const rows = result.rows.map(row => {
@@ -430,11 +455,11 @@ app.get('/project/list', async (req, res) => {
 });
 
 app.get('/project/info', async (req, res) => {
-  const { userId, projectName } = req.query;
+  const { userId, projectNum } = req.query;
   try {
     const result = await connection.execute(
-      `SELECT P.*, TO_CHAR(DUE_DATE, 'YYYY-MM-DD') AS DUEDATE, TO_CHAR(CREATED_AT, 'YYYY-MM-DD') AS CREATEDDATE FROM TABLE_PROJECT P  WHERE USERID = :userId AND PROJECT_NAME = :projectName`,
-      [userId, projectName]
+      `SELECT P.*, TO_CHAR(DUE_DATE, 'YYYY-MM-DD') AS DUEDATE, TO_CHAR(CREATED_AT, 'YYYY-MM-DD') AS CREATEDDATE FROM TABLE_PROJECT P  WHERE USERID = :userId AND PROJECT_NUM = :projectNum`,
+      [userId, projectNum]
     );
     const columnNames = result.metaData.map(column => column.name);
     // 쿼리 결과를 JSON 형태로 변환
@@ -456,6 +481,74 @@ app.get('/project/info', async (req, res) => {
   }
 });
 
+app.get('/task/info', async (req, res) => {
+  const { projectNum } = req.query;
+  try {
+    const result = await connection.execute(
+      `SELECT * FROM TABLE_TASK WHERE PROJECT_NUM = :projectNum`,
+      [projectNum]
+    );
+    const columnNames = result.metaData.map(column => column.name);
+    // 쿼리 결과를 JSON 형태로 변환
+    const rows = result.rows.map(row => {
+      // 각 행의 데이터를 컬럼명에 맞게 매핑하여 JSON 객체로 변환
+      const obj = {};
+      columnNames.forEach((columnName, index) => {
+        obj[columnName] = row[index];
+      });
+      return obj;
+    });
+    res.json({
+        result : "success",
+        info : rows
+    });
+  } catch (error) {
+    console.error('Error executing query', error);
+    res.status(500).send('Error executing query');
+  }
+});
+
+app.get('/project/add', async (req, res) => {
+  const { userId, projectName, dueDate, priority } = req.query;
+
+  try {
+    await connection.execute(
+      `INSERT INTO TABLE_PROJECT(PROJECT_NUM, USERID, PROJECT_NAME, DUE_DATE, CREATED_AT, UPDATED_AT, PRIORITY) ` 
+      + `VALUES (PROJECT_SEQ.NEXTVAL, :userId, :projectName, :dueDate, SYSDATE, SYSDATE, :priority)`,
+      [ userId, projectName, dueDate, priority ],
+      { autoCommit: true }
+    );
+    res.json({
+        result : "success"
+    });
+  } catch (error) {
+    console.error('Error executing insert', error);
+    res.status(500).send('Error executing insert');
+  }
+});
+
+app.get('/project/delete', async (req, res) => {
+  const { projectNum } = req.query;
+
+  try {
+    await connection.execute(
+      `DELETE FROM TABLE_TASK WHERE PROJECT_NUM = :projectNum`,
+      [projectNum],
+      { autoCommit: true }
+    );
+    await connection.execute(
+      `DELETE FROM TABLE_PROJECT WHERE PROJECT_NUM = :projectNum`,
+      [projectNum],
+      { autoCommit: true }
+    );
+    res.json({
+        result : "success"
+    });
+  } catch (error) {
+    console.error('Error executing insert', error);
+    res.status(500).send('Error executing insert');
+  }
+});
 
 // 서버 시작
 app.listen(3009, () => {

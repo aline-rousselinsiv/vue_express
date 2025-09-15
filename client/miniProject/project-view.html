@@ -34,11 +34,9 @@
             </table>
             <div>Tasks</div>
             <div id="tasks">
-                <li>
-                    <ol>{{projectInfo.TASK_NAME}}</ol>
-                    <ol></ol>
-                    <ol></ol>
-                </li>
+                <ul v-for="item in taskInfo">
+                    <li>{{item.TASK_NAME}}</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -50,8 +48,9 @@
             return {
                 // 변수 - (key : value)
                 sessionId : "",
-                projectName : "",
-                projectInfo : {}
+                projectNum : "",
+                projectInfo : {},
+                taskInfo : []
             };
         },
         methods: {
@@ -60,7 +59,7 @@
                 let self = this;
                 let param = {
                     userId : self.sessionId,
-                    projectName : self.projectName
+                    projectNum : self.projectNum
                 };
                 $.ajax({
                     url: "http://localhost:3009/project/info",
@@ -72,15 +71,32 @@
                         console.log(self.projectInfo);
                     }
                 });
+            },
+            fnTaskInfo: function(){
+                let self = this;
+                let param = {
+                    projectNum : self.projectNum
+                };
+                $.ajax({
+                    url: "http://localhost:3009/task/info",
+                    dataType: "json",
+                    type: "GET",
+                    data: param,
+                    success: function (data) {
+                        self.taskInfo = data.info;
+                        console.log(self.taskInfo);
+                    }
+                });
             }
         }, // methods
         mounted() {
             // 처음 시작할 때 실행되는 부분
             let self = this;
             const queryParams = new URLSearchParams(window.location.search);
-            this.projectName = queryParams.get("projectName");
+            this.projectNum = queryParams.get("projectNum");
             this.sessionId = sessionStorage.getItem("sessionId");
             self.fnProjectInfo();
+            self.fnTaskInfo();
 
         }
     });

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Intro-Styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <h1>make it</h1>
+    <span id="login">
+        <a href="login.html">login</a>
+    </span>
+    <span id="sign-up">
+        <a href="login.html">sign up</a>
+    </span>
+    <div id="description">
+        let's bring your projects to live
+    </div>
+</body>
+</html>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                // 변수 - (key : value)
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+            let self = this;
+        }
+    });
+
+    app.mount('#app');
+</script>

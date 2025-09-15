@@ -23,29 +23,29 @@
                         <th>Priority</th>
                         <td id="priority-btn">
                             <label>
-                                <input type="radio" name="priority">
+                                <input type="radio" name="priority" value="High" v-model="priority">
                                 High
                             </label>   
                             <label>
-                                <input type="radio" name="priority">
+                                <input type="radio" name="priority" value="Normal" v-model="priority">
                                 Normal
                             </label>
                             <label>
-                                <input type="radio" name="priority">
-                                High
+                                <input type="radio" name="priority" value="Low" v-model="priority">
+                                Low
                             </label>
                         </td>
                     </tr>
                     <tr>
                         <th>Project</th>
                         <td>
-                            <input type="text">
+                            <input type="text" v-model="projectName">
                         </td>
                     </tr>
                     <tr>
                         <th>Due Date</th>
                         <td>
-                            <input type="text">
+                            <input type="date" v-model="dueDate">
                         </td>
                     </tr>
                     <tr>
@@ -53,8 +53,54 @@
                         <td><span id="plus-icon" class="fa-solid fa-plus"></span>Add new task</td>
                     </tr>
                 </table>
+                <div class="delete-btn">
+                <input type="button" value="Create Project" @click="fnAddProject">
+            </div>
             </div>
         </div>
     </div>    
 </body>
 </html>
+<script>
+     const app = Vue.createApp({
+        data() {
+            return {
+                // 변수 - (key : value)
+                projectName: "",
+                dueDate : "",
+                priority : "",
+                sessionId : ""
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnAddProject: function () {
+                let self = this;
+                let param = {
+                    projectName : self.projectName,
+                    dueDate : self.dueDate,
+                    priority : self.priority,
+                    userId : self.sessionId
+                };
+                $.ajax({
+                    url: "http://localhost:3009/project/add",
+                    dataType: "json",
+                    type: "GET",
+                    data: param,
+                    success: function (data) {
+                        alert("Succesfully created !");
+                        location.href="project-list.html";
+                    }
+                });
+            }
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+            let self = this;
+            this.sessionId = sessionStorage.getItem("sessionId");
+            console.log(self.sessionId);
+        }
+    });
+
+    app.mount('#app');
+</script>

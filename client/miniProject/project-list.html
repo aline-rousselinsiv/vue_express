@@ -18,7 +18,7 @@
         <div id="main">
             <h1>MY PROJECTS</h1>
             <div class="search-bar">
-                <input type="text" placeholder="Search">
+                <input type="text" placeholder="Search" v-model="keyword" @input="fnProjectList">
                 <span class="search-icon fa-solid fa-magnifying-glass"></span>
             </div>
             <table>
@@ -32,10 +32,10 @@
                 </tr>
                 <tr v-for="item in projectList">
                     <td>
-                        <input type="radio" name="selectProject">
+                        <input type="radio" name="selectProject" :value="item.PROJECT_NUM" v-model="selectedProject">
                     </td>
                     <td>
-                        <a href="javascript:;" @click="fnViewProject(item.PROJECT_NAME)">{{item.PROJECT_NAME}}</a>
+                        <a href="javascript:;" @click="fnViewProject(item.PROJECT_NUM)">{{item.PROJECT_NAME}}</a>
                     </td>
                     <td>{{item.PRIORITY}}</td>
                     <td>{{item.DUEDATE}}</td>
@@ -49,8 +49,8 @@
                     <div id="add">Add new project</div>
                 </a>
             </div>
-            <div class="delete-btn">
-                <input type="button" value="Delete Project" @click="fnDelete">
+            <div v-for="item in projectList" class="delete-btn">
+                <input type="button" value="Delete Project" @click="fnDelete()">
             </div>
         </div>
     </div>
@@ -64,7 +64,9 @@
                 // 변수 - (key : value)
                 userId: "",
                 sessionId: "",
-                projectList: ""
+                projectList: [],
+                keyword : "",
+                selectedProject: null
             };
         },
         methods: {
@@ -72,7 +74,8 @@
             fnProjectList: function () {
                 let self = this;
                 let param = {
-                    userId : self.sessionId
+                    userId : self.sessionId,
+                    keyword : self.keyword
                 };
                 $.ajax({
                     url: "http://localhost:3009/project/list",
@@ -85,15 +88,35 @@
                     }
                 });
             },
-            fnAddProject : function(projNum){
-                location.href="Project-add.html?projNo="+projNum;
+            fnAddProject : function(){
+                location.href="Project-add.html";
             },
             fnDelete : function (){
-                alert(confirm("Deleting project. Do you confirm?"));
-                self.fnProjectList();
+                let self = this;
+                if(!self.selectedProject){
+                    alert("Please select a project first !");
+                    return;
+                }
+                if(!confirm("Deleting project. Do you confirm?"))
+                    return;
+
+                let param = {
+                    projectNum : self.selectedProject
+                };
+                $.ajax({
+                    url: "http://localhost:3009/project/delete",
+                    dataType: "json",
+                    type: "GET",
+                    data: param,
+                    success: function (data) {
+                        alert("Project successfully deleted !");
+                        self.fnProjectList();
+                        self.selectedProject = null;
+                    }
+                });
             },
-            fnViewProject: function(projectName){
-                location.href=`project-view.html?projectName=${projectName}`;
+            fnViewProject: function(projectNum){
+                location.href=`project-view.html?projectNum=${projectNum}`;
             }
         }, // methods
         mounted() {

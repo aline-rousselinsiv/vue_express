@@ -7,8 +7,14 @@
 } */
 
 /* project list page*/
-html {
-    background-color: #e4e2e2;
+ html {
+    height: 100%;
+ }
+body {
+    background-image: url(/client/miniProject/media/farhan-nsrdn-uyvK8hrKex8-unsplash.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 #main {
     width: 900px;
@@ -84,6 +90,9 @@ td{
     margin-left: 90px;
     top: 10%;
     width: 200px;
+}
+.add-project #add:hover{
+    color: black;
 }
 .add-project a{
     text-decoration: none;
@@ -191,7 +200,6 @@ td input:not([type="radio"]) {
 }
 
 /* view project page*/
-
 #view-project  div:not([id="task"]){
     font-size: 20px;
     font-weight: bold;
@@ -201,4 +209,7 @@ td input:not([type="radio"]) {
 }
 #view-project #task {
     margin-left: 100px;
+}
+li {
+    font-size: 15px;
 }

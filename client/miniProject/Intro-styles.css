@@ -1,0 +1,38 @@
+/*Intro page*/
+html {
+    height: 100%;
+}
+body {
+    background-image: url(/client/miniProject/media/farhan-nsrdn-uyvK8hrKex8-unsplash.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: "Urbanist", sans-serif;
+    color: white;}
+h1 {
+    margin: 50px;
+    font-size: 60px;
+    float: left;
+}  
+#login, #sign-up{
+    font-size: 18px;
+    padding-right: 30px;
+    margin-top: 90px;
+    float: left;}
+a{
+    text-decoration: none;
+}
+a:visited {
+  color: white;
+}
+#login:hover, #sign-up:hover{
+    font-size: 19px;
+    transition: font-size 0.3s ease-in-out;
+    cursor: pointer;
+}
+#description {
+    font-size: 25px;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
