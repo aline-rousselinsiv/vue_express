@@ -1,10 +1,27 @@
-/* header{
-    width: 100%;
-    height: 150px;
-    background-color: aqua;
+/* logout*/
+#logout{
+    font-family: "Urbanist", sans-serif;
+    margin-right: 50px;
+    margin-top: -50px;
+    float: right;
+}
+#logout button {
     border: none;
-    margin-bottom: none;
-} */
+    background-color: transparent;
+    color: white;
+    font-size: 18px;
+}
+#logout button{
+    text-decoration: none;
+}
+#logout button:visited {
+  color: white;
+}
+#logout button:hover {
+    font-size: 19px;
+    transition: font-size 0.3s ease-in-out;
+    cursor: pointer;
+}
 
 /* project list page*/
  html {
@@ -153,6 +170,11 @@ h2 {
     right: 50px;
     margin-top: 15px;
     text-align: center;
+    transition: all 0.1s ease;
+}
+.sign-in input:focus::placeholder, .sign-up input:focus::placeholder {
+    color: transparent;
+    background-color: #fcfdfd;
 }
 .sign-in button, .sign-up button {
     font-family: "Urbanist", sans-serif;
@@ -164,6 +186,14 @@ h2 {
     margin-bottom: 20px;
     text-align: center;
 }
+.sign-in button:hover, .sign-up button:hover {
+    background-color: beige;
+    font-size: 14px;
+}
+.sign-in button:active, .sign-up button:active {
+    transform: translateY(2px); /* moves button down */
+}
+
 .sign-up{
     margin-top: 20px;
 }
@@ -218,9 +248,16 @@ label {
     bottom: 30px;
     right: 50px;
 }
-.create-btn input:hover{
+.create-btn input:hover, .create-btn button:hover{
     font-size: 16px;
     background-color: #b8b8b8;
+}
+.create-btn button{
+    font-size: 15px;
+    width: 180px;
+    position: absolute;
+    bottom: 30px;
+    left: 50px;
 }
 #add-btn {
     margin-left: -60px;
@@ -263,7 +300,6 @@ input, button{
     color: #333333;
     cursor: pointer;
 }
-
 /* view project page*/
 #view-project  div:not([id="task"]){
     font-size: 20px;

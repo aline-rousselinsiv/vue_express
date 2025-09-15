@@ -10,13 +10,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="logout.js"></script>
     <title>My Projects</title>
 </head>
 <body>
     <div id="app">
-        <header></header>
+        <div id="logout">
+            <button onclick="fnLogout()">logout</button>
+        </div>
         <div id="main">
             <h1>MY PROJECTS</h1>
+            <h2>Welcome, Aline</h2>
             <div class="search-bar">
                 <input type="text" placeholder="Search" v-model="keyword" @input="fnProjectList">
                 <span class="search-icon fa-solid fa-magnifying-glass"></span>

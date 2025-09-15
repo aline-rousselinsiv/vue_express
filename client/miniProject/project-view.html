@@ -10,33 +10,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="logout.js"></script>
     <title>My Project's Details</title>
 </head>
 <body>
     <div id="app">
-    <header></header>
-    <div id="main">
-        <h1>VIEW PROJECT</h1>
-        <div id="view-project">
-            <table class="view-project">
-                <tr>
-                    <th>Priority</th>
-                    <td>{{projectInfo.PRIORITY}}</td>
-                </tr>
-                <tr>
-                    <th>Project</th>
-                    <td>{{projectInfo.PROJECT_NAME}}</td>
-                </tr>
-                <tr>
-                    <th>Due Date</th>
-                    <td>{{projectInfo.DUEDATE}}</td>
-                </tr>
-            </table>
-            <div>Tasks</div>
-            <div id="tasks">
-                <ul v-for="item in taskInfo">
-                    <li>{{item.TASK_NAME}}</li>
-                </ul>
+        <div id="logout">
+            <button onclick="fnLogout()">logout</button>
+        </div>
+        <div id="main">
+            <h1>VIEW PROJECT</h1>
+            <div id="view-project">
+                <table class="view-project">
+                    <tr>
+                        <th>Priority</th>
+                        <td>{{projectInfo.PRIORITY}}</td>
+                    </tr>
+                    <tr>
+                        <th>Project</th>
+                        <td>{{projectInfo.PROJECT_NAME}}</td>
+                    </tr>
+                    <tr>
+                        <th>Due Date</th>
+                        <td>{{projectInfo.DUEDATE}}</td>
+                    </tr>
+                </table>
+                <div>Tasks</div>
+                <div id="tasks">
+                    <ul v-for="item in taskInfo">
+                        <li>{{item.TASK_NAME}}</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
