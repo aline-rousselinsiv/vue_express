@@ -24,7 +24,7 @@
                 <h2>Welcome, {{userInfo.NAME}} !</h2>
             </div>
             <div class="search-bar">
-                <input type="text" placeholder="Search" v-model="keyword" @input="fnProjectList" @input="fnProjectList(currentSort)">
+                <input type="text" placeholder="Search" v-model="keyword" @input="fnProjectList(currentSort)">
                 <span class="search-icon fa-solid fa-magnifying-glass"></span>
             </div>
             <table>
@@ -34,8 +34,11 @@
                     <th>Priority</th>
                     <th>
                         Due Date
-                        <span class="sort-triangle" @click="fnSortDate" :class="{ 'desc': currentSort=='latest', 'asc': currentSort=='oldest' }">
-                            &#9660;
+                        <span v-if="currentSort === 'latest'" class="sort-triangle" @click="fnSortDate">
+                            &#9660; <!-- upside-down triangle -->
+                        </span>
+                        <span v-else class="sort-triangle" @click="fnSortDate">
+                            &#9650; <!-- upside-up triangle -->
                         </span>
                     </th>
                     <th>Status</th>
@@ -54,6 +57,12 @@
                     <td>{{item.CREATEDDATE}}</td>
                 </tr>
             </table>
+            <div class="pagination">
+                <a class="index" href="javascript:;" v-for="num in index" @click="fnPage(num)">
+                <span v-if="num == page" style="font-weight: bold;">{{num}}</span>
+                <span v-else>{{num}}</span>
+            </a>
+            </div>
             <div class="add-project">
                 <a href="javascript:;" @click="fnAddProject()">
                     <div id="plus-icon" class="fa-solid fa-plus"></div>
@@ -79,7 +88,10 @@
                 keyword : "",
                 selectedProject: null,
                 userInfo: {},
-                currentSort : "latest"
+                currentSort : "latest",
+                index : 0,
+                pageSize : 5,
+                page : 1
             };
         },
         methods: {
@@ -89,12 +101,19 @@
                 self.currentSort = self.currentSort == "latest" ? "oldest" : "latest"; // toggle
                 self.fnProjectList(self.currentSort); // call the function and pass it the current sort
             },
+            fnPage : function(num){
+                let self = this;
+                self.page = num;
+                self.fnProjectList();
+            },
             fnProjectList: function (sortOrder = "") {
                 let self = this;
                 let param = {
                     userId : self.sessionId,
                     keyword : self.keyword,
-                    sort: sortOrder
+                    sort: sortOrder,
+                    pageSize : self.pageSize,
+                    offset : (self.page -1) * self.pageSize,
                 };
                 $.ajax({
                     url: "http://localhost:3009/project/list",
@@ -104,6 +123,7 @@
                     success: function (data) {
                         console.log(data);
                         self.projectList = data.list;
+                        self.index = Math.ceil(data.count / self.pageSize);
                     }
                 });
             },

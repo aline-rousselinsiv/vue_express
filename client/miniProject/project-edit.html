@@ -11,7 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="logout.js"></script>
-    <title>New Project</title>
+    <title>Edit Project</title>
 </head>
 <body>
      <div id="app">
@@ -58,7 +58,8 @@
                 </table>
                 <div class="classwrapper">
                     <div class="editTasks" v-for="item in taskInfo">
-                    <input type="text" v-model="item.TASK_NAME">
+                        <input type="text" v-model="item.TASK_NAME" :disabled="item.STATUS == 'Completed'">
+                        <input type="checkbox" @change="fnTaskComplete(item)" :checked="item.STATUS == 'Completed'"><span>completed</span>
                     </div>
                 </div>
                 <div class="create-btn">
@@ -120,6 +121,12 @@
             },
             fnSaveChanges() {
                 let self = this;
+
+                // update task status
+                let updatedTasks = self.taskInfo.map(task => ({
+                    ...task,
+                    status: task.completed ? "Completed" : "Pending"
+                }));
                 let param = {
                     projectInfo : self.projectInfo,
                     taskInfo : self.taskInfo
@@ -135,6 +142,11 @@
                         location.href="project-view.html?projectNum="+self.projectNum;
                     }
                 });
+            },
+            fnTaskComplete: function(task){
+                let self = this;
+                task.STATUS = task.STATUS == 'Completed' ? 'Pending' : 'Completed';
+                task.isDisabled = task.STATUS == 'Completed';
             },
             fnBackToList: function(){
                 if(!confirm("Make sure to save your changes.")){

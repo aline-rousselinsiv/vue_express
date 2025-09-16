@@ -110,6 +110,7 @@ td{
 .add-project{
     position: relative;
     display: inline-block;
+    margin-top: 30px;
 }
 .add-project #add{
     color: #8a8a8a;
@@ -316,16 +317,11 @@ input, button{
 }
 .sort-triangle{
     cursor: pointer;
-    transform: rotate(0deg);
-}
-.sort-triangle.asc {
-  transform: rotate(180deg); /* upside-up triangle */
-}
-.sort-triangle.desc {
-  transform: rotate(0deg);   /* upside-down triangle */
+    transition: transform 0.2s;
 }
 
 /* view project page */
+
 #view-project  div:not([id="task"]){
     font-size: 20px;
     font-weight: bold;
@@ -333,19 +329,21 @@ input, button{
     margin-top: -20px;
     float: left;
 }
-
 #view-project th{
     width: 150px;
 }
-ul {
-    margin-top: 7px;
-    margin-left: 80px;
-    font-size: 15px;
-    font-weight: normal;
+table[id="tasks"] {
+    margin-top: -43px;
+    margin-left: 230px;
+    float: left;
 }
-
+table[id="tasks"] td {
+    width: 500px;
+    font-weight: normal;
+    border-bottom: none;
+}
 ul li {
-    margin-bottom: 20px;
+    margin-bottom: -10px;
 }
 
 /* edit project page */
@@ -358,7 +356,48 @@ ul li {
 .editTasks {
     margin-left: 230px;
 }
-.editTasks input {
+.editTasks input[type="text"] {
     width: 400px;
     margin-bottom: 10px;
+    float: left;
+    background-color: #eeecec;
 }
+.editTasks input[type="text"]:disabled {
+    background-color:#fcfdfd;
+    /* cursor: not-allowed;  */ /* the little stop sign*/
+}
+.editTasks input[type="checkbox"] {
+    width: 15px;
+    float: left;
+    margin-left: 10px;
+}
+.editTasks span {
+    font-size: 11px;
+    float: left;
+    margin-top: 14px;
+    margin-left: 5px;
+}
+
+/* pagination */
+.pagination {
+    text-align: center;
+    margin-top: -30px;
+}
+
+.pagination span {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 5px 13px 5px 13px;
+    margin-right: 3px;
+}
+.pagination a{
+    text-decoration: none;
+    color: black;
+}
+.pagination span:hover{
+    border: 1px solid rgb(201, 200, 200);
+}
+.pagination a:hover{
+    color: #8a8a8a;
+}
+

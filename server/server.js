@@ -406,9 +406,8 @@ app.get('/signup', async (req, res) => {
 });
 
 app.get('/project/list', async (req, res) => {
-  const { userId, keyword, sort } = req.query;
+  const { userId, keyword, sort, pageSize, offset } = req.query;
   try {
-    // Base SQL query
     let query = `
       SELECT P.*, 
              TO_CHAR(DUE_DATE, 'YYYY-MM-DD') AS DUEDATE, 
@@ -438,7 +437,12 @@ app.get('/project/list', async (req, res) => {
       query += ` ORDER BY P.DUE_DATE DESC`;
     } else if (sort == "oldest"){
       query += ` ORDER BY P.DUE_DATE ASC`;
+    } else {
+      query += ` ORDER BY P.CREATED_AT DESC`; 
     }
+
+    // pagination
+    query += ` OFFSET ${offset} ROWS FETCH NEXT ${pageSize} ROWS ONLY`
 
     const result = await connection.execute(query, params);
 
@@ -452,9 +456,15 @@ app.get('/project/list', async (req, res) => {
       });
       return obj;
     });
+    const count = await connection.execute(
+      `SELECT COUNT(*) FROM TABLE_PROJECT WHERE USERID = :userId`,
+      [userId]
+    );
+    // 리턴
     res.json({
         result : "success",
-        list : rows
+        list : rows,
+        count : count.rows[0][0]
     });
   } catch (error) {
     console.error('Error executing query', error);
@@ -636,12 +646,14 @@ app.post('/project/edit', async (req, res) => {
     for (const task of taskInfo) {
       await connection.execute(
         `UPDATE TABLE_TASK `
-        +`SET TASK_NAME = :taskName, `
+        +`SET TASK_NAME = :taskName,` 
+        +`STATUS =:status, `
         +`UPDATED_AT = SYSDATE `
         +`WHERE TASK_NUM = :taskNum`,
         {
           taskName: task.TASK_NAME,
-          taskNum: task.TASK_NUM
+          taskNum: task.TASK_NUM,
+          status: task.STATUS
         }
       );
     }

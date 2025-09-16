@@ -36,11 +36,14 @@
                     </tr>
                 </table>
                 <div>Tasks</div>
-                <div id="tasks">
-                    <ul v-for="item in taskInfo">
-                        <li>{{item.TASK_NAME}}</li>
-                    </ul>
-                </div>
+                <table id="tasks">
+                    <tr v-for="item in taskInfo"> 
+                        <td>
+                            <ul><li>{{item.TASK_NAME}}</li></ul>
+                        </td>
+                        <td>{{item.STATUS}} </td>
+                    </tr>
+                </table>
                 <div class="create-btn">
                     <input type="button" value="Edit Project" @click="fnEditPage">
                     <button @click="fnBackToList">Back to list</button>
