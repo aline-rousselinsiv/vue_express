@@ -5,6 +5,7 @@ const oracledb = require('oracledb');
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 
 // ejs 설정
 app.set('view engine', 'ejs');
@@ -405,10 +406,10 @@ app.get('/signup', async (req, res) => {
 });
 
 app.get('/project/list', async (req, res) => {
-  const { userId, keyword } = req.query;
+  const { userId, keyword, sort } = req.query;
   try {
     // Base SQL query
-    let sql = `
+    let query = `
       SELECT P.*, 
              TO_CHAR(DUE_DATE, 'YYYY-MM-DD') AS DUEDATE, 
              TO_CHAR(CREATED_AT, 'YYYY-MM-DD') AS CREATEDDATE
@@ -420,7 +421,7 @@ app.get('/project/list', async (req, res) => {
 
     // Add search filter if keyword exists
     if (keyword && keyword.trim() !== "") {
-      sql += `
+      query += `
         AND (
           LOWER(P.PROJECT_NAME) LIKE :kw
           OR LOWER(P.PRIORITY) LIKE :kw
@@ -432,7 +433,14 @@ app.get('/project/list', async (req, res) => {
       params.push(`%${keyword.toLowerCase()}%`);
     }
 
-    const result = await connection.execute(sql, params);
+    // Sort by dates (latest/newest)
+    if (sort == "latest"){
+      query += ` ORDER BY P.DUE_DATE DESC`;
+    } else if (sort == "oldest"){
+      query += ` ORDER BY P.DUE_DATE ASC`;
+    }
+
+    const result = await connection.execute(query, params);
 
     const columnNames = result.metaData.map(column => column.name);
     // 쿼리 결과를 JSON 형태로 변환
@@ -460,6 +468,33 @@ app.get('/project/info', async (req, res) => {
     const result = await connection.execute(
       `SELECT P.*, TO_CHAR(DUE_DATE, 'YYYY-MM-DD') AS DUEDATE, TO_CHAR(CREATED_AT, 'YYYY-MM-DD') AS CREATEDDATE FROM TABLE_PROJECT P  WHERE USERID = :userId AND PROJECT_NUM = :projectNum`,
       [userId, projectNum]
+    );
+    const columnNames = result.metaData.map(column => column.name);
+    // 쿼리 결과를 JSON 형태로 변환
+    const rows = result.rows.map(row => {
+      // 각 행의 데이터를 컬럼명에 맞게 매핑하여 JSON 객체로 변환
+      const obj = {};
+      columnNames.forEach((columnName, index) => {
+        obj[columnName] = row[index];
+      });
+      return obj;
+    });
+    res.json({
+        result : "success",
+        info : rows[0]
+    });
+  } catch (error) {
+    console.error('Error executing query', error);
+    res.status(500).send('Error executing query');
+  }
+});
+
+app.get('/user/info', async (req, res) => {
+  const { userId } = req.query;
+  try {
+    const result = await connection.execute(
+      `SELECT * FROM TABLE_USER WHERE USERID = :userId`,
+      [userId]
     );
     const columnNames = result.metaData.map(column => column.name);
     // 쿼리 결과를 JSON 형태로 변환
@@ -570,6 +605,49 @@ app.get('/project/delete', async (req, res) => {
       [projectNum],
       { autoCommit: true }
     );
+    res.json({
+        result : "success"
+    });
+  } catch (error) {
+    console.error('Error executing insert', error);
+    res.status(500).send('Error executing insert');
+  }
+});
+
+app.post('/project/edit', async (req, res) => {
+  const { projectInfo, taskInfo } = req.body;
+
+  try {
+    await connection.execute(
+      `UPDATE TABLE_PROJECT `
+      + `SET PROJECT_NAME = :projectName, `
+      + `DUE_DATE = TO_DATE(:duedate, 'YYYY-MM-DD'), `
+      + `PRIORITY = :priority, `
+      + `UPDATED_AT = SYSDATE `
+      + `WHERE PROJECT_NUM = :projectNum`,
+      {
+        projectName: projectInfo.PROJECT_NAME,
+        duedate: projectInfo.DUEDATE,
+        priority: projectInfo.PRIORITY,
+        projectNum: projectInfo.PROJECT_NUM
+      }
+    );
+
+    for (const task of taskInfo) {
+      await connection.execute(
+        `UPDATE TABLE_TASK `
+        +`SET TASK_NAME = :taskName, `
+        +`UPDATED_AT = SYSDATE `
+        +`WHERE TASK_NUM = :taskNum`,
+        {
+          taskName: task.TASK_NAME,
+          taskNum: task.TASK_NUM
+        }
+      );
+    }
+
+    await connection.commit();
+
     res.json({
         result : "success"
     });

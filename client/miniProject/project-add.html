@@ -10,6 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+Usage
     <script src="logout.js"></script>
     <title>New Project</title>
 </head>
@@ -42,13 +45,13 @@
                     <tr>
                         <th>Project</th>
                         <td>
-                            <input type="text" v-model="projectName">
+                            <input placeholder="Project's name" type="text" v-model="projectName">
                         </td>
                     </tr>
                     <tr>
                         <th>Due Date</th>
                         <td>
-                            <input type="date" v-model="dueDate">
+                            <input ref="datepicker" placeholder="Select date" type="date" v-model="dueDate">
                         </td>
                     </tr>
                     <tr>
@@ -63,7 +66,7 @@
                 </table>
                 <div class="add-remove">
                     <div v-for="(task, index) in tasks" :key="index">
-                        <input type="text" placeholder="Enter new task" v-model="task.name">
+                        <input type="text" placeholder="Enter new task" v-model="task.name" :ref="'taskInput'">
                         <button @click="fnRemoveTask(index)"><span class="fa-solid fa-trash"></span></button>
                     </div>
                 </div>
@@ -86,7 +89,7 @@
                 priority : "",
                 sessionId : "",
                 tasks: [],
-                maxTasks : 5
+                maxTasks : 4
             };
         },
         methods: {
@@ -157,6 +160,11 @@
                 let self = this;
                 if (this.tasks.length < this.maxTasks) {
                     this.tasks.push({ name: "" });
+
+                    this.$nextTick(() => { // nextTick ensures DOM has updated
+                    const inputs = this.$refs.taskInput; // array of input refs
+                    inputs[inputs.length - 1].focus();   // focus the last input
+                    });
                 }
             },
             fnRemoveTask: function(index){
@@ -173,6 +181,10 @@
         mounted() {
             // 처음 시작할 때 실행되는 부분
             let self = this;
+            flatpickr(this.$refs.datepicker, {
+                dateFormat: "Y-m-d",
+                allowInput: true, // user can type or pick
+            });
             this.sessionId = sessionStorage.getItem("sessionId");
             console.log(self.sessionId);
         }

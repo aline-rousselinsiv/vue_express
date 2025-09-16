@@ -11,53 +11,75 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="logout.js"></script>
-    <title>My Project's Details</title>
+    <title>New Project</title>
 </head>
 <body>
-    <div id="app">
+     <div id="app">
         <div id="logout">
             <button onclick="fnLogout()">logout</button>
         </div>
         <div id="main">
-            <h1>VIEW PROJECT</h1>
-            <div id="view-project">
+            <h1>EDIT PROJECT</h1>
+            <div id="new-project">
                 <table>
                     <tr>
                         <th>Priority</th>
-                        <td>{{projectInfo.PRIORITY}}</td>
+                        <td id="priority-btn">
+                            <label>
+                                <input type="radio" name="priority" value="High" v-model="projectInfo.PRIORITY">
+                                <span class="prio">High</span>
+                            </label>   
+                            <label>
+                                <input type="radio" name="priority" value="Normal" v-model="projectInfo.PRIORITY">
+                                <span class="prio">Normal</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="priority" value="Low" v-model="projectInfo.PRIORITY">
+                                <span class="prio">Low</span>
+                            </label>
+                        </td>
                     </tr>
                     <tr>
                         <th>Project</th>
-                        <td>{{projectInfo.PROJECT_NAME}}</td>
+                        <td>
+                            <input type="text" v-model="projectInfo.PROJECT_NAME">
+                        </td>
                     </tr>
                     <tr>
                         <th>Due Date</th>
-                        <td>{{projectInfo.DUEDATE}}</td>
+                        <td>
+                            <input type="date" v-model="projectInfo.DUEDATE">
+                        </td>
+                    </tr>
+                    <tr id=task-row >
+                        <th>Tasks</th>
+                        <td ></td>
                     </tr>
                 </table>
-                <div>Tasks</div>
-                <div id="tasks">
-                    <ul v-for="item in taskInfo">
-                        <li>{{item.TASK_NAME}}</li>
-                    </ul>
+                <div class="classwrapper">
+                    <div class="editTasks" v-for="item in taskInfo">
+                    <input type="text" v-model="item.TASK_NAME">
+                    </div>
                 </div>
                 <div class="create-btn">
-                    <input type="button" value="Edit Project" @click="fnEditPage">
+                    <input type="button" value="Save Changes" @click="fnSaveChanges">
                     <button @click="fnBackToList">Back to list</button>
                 </div>
             </div>
         </div>
-    </div>
+    </div>    
 </body>
 </html>
 <script>
-    const app = Vue.createApp({
+     const app = Vue.createApp({
         data() {
             return {
                 // 변수 - (key : value)
-                sessionId : "",
-                projectNum : "",
                 projectInfo : {},
+                projectName: "",
+                dueDate : "",
+                priority : "",
+                sessionId : "",
                 taskInfo : []
             };
         },
@@ -96,25 +118,42 @@
                     }
                 });
             },
-            fnEditPage: function(){
-                location.href=`project-edit.html?projectNum=${this.projectNum}`;
+            fnSaveChanges() {
+                let self = this;
+                let param = {
+                    projectInfo : self.projectInfo,
+                    taskInfo : self.taskInfo
+                };
+                $.ajax({
+                    url: "http://localhost:3009/project/edit",
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json", 
+                    data: JSON.stringify(param),
+                    success: function (data) {
+                        alert("Project's edit successfully done!");
+                        location.href="project-view.html?projectNum="+self.projectNum;
+                    }
+                });
             },
             fnBackToList: function(){
+                if(!confirm("Make sure to save your changes.")){
+                    return;
+                }
                 location.href="project-list.html";
             }
         }, // methods
         mounted() {
             // 처음 시작할 때 실행되는 부분
             let self = this;
+            this.sessionId = sessionStorage.getItem("sessionId");
+            console.log(self.sessionId);
             const queryParams = new URLSearchParams(window.location.search);
             this.projectNum = queryParams.get("projectNum");
-            this.sessionId = sessionStorage.getItem("sessionId");
             self.fnProjectInfo();
             self.fnTaskInfo();
-
+            
         }
     });
-
     app.mount('#app');
 </script>
-    

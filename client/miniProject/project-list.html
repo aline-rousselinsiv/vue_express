@@ -19,10 +19,12 @@
             <button onclick="fnLogout()">logout</button>
         </div>
         <div id="main">
-            <h1>MY PROJECTS</h1>
-            <h2>Welcome, Aline</h2>
+            <div class="titles">
+                <h1>MY PROJECTS</h1>
+                <h2>Welcome, {{userInfo.NAME}} !</h2>
+            </div>
             <div class="search-bar">
-                <input type="text" placeholder="Search" v-model="keyword" @input="fnProjectList">
+                <input type="text" placeholder="Search" v-model="keyword" @input="fnProjectList" @input="fnProjectList(currentSort)">
                 <span class="search-icon fa-solid fa-magnifying-glass"></span>
             </div>
             <table>
@@ -30,7 +32,12 @@
                     <th>Select</th>
                     <th>Project</th>
                     <th>Priority</th>
-                    <th>Due Date</th>
+                    <th>
+                        Due Date
+                        <span class="sort-triangle" @click="fnSortDate" :class="{ 'desc': currentSort=='latest', 'asc': currentSort=='oldest' }">
+                            &#9660;
+                        </span>
+                    </th>
                     <th>Status</th>
                     <th>Date</th>
                 </tr>
@@ -70,16 +77,24 @@
                 sessionId: "",
                 projectList: [],
                 keyword : "",
-                selectedProject: null
+                selectedProject: null,
+                userInfo: {},
+                currentSort : "latest"
             };
         },
         methods: {
             // 함수(메소드) - (key : function())
-            fnProjectList: function () {
+            fnSortDate: function(){
+                let self = this;
+                self.currentSort = self.currentSort == "latest" ? "oldest" : "latest"; // toggle
+                self.fnProjectList(self.currentSort); // call the function and pass it the current sort
+            },
+            fnProjectList: function (sortOrder = "") {
                 let self = this;
                 let param = {
                     userId : self.sessionId,
-                    keyword : self.keyword
+                    keyword : self.keyword,
+                    sort: sortOrder
                 };
                 $.ajax({
                     url: "http://localhost:3009/project/list",
@@ -89,6 +104,22 @@
                     success: function (data) {
                         console.log(data);
                         self.projectList = data.list;
+                    }
+                });
+            },
+            fnUserInfo: function(){
+                let self = this;
+                let param = {
+                    userId : self.sessionId
+                };
+                $.ajax({
+                    url: "http://localhost:3009/user/info",
+                    dataType: "json",
+                    type: "GET",
+                    data: param,
+                    success: function (data) {
+                        console.log(data);
+                        self.userInfo = data.info;
                     }
                 });
             },
@@ -131,7 +162,8 @@
             // console.log(self.userId);
             this.sessionId = sessionStorage.getItem("sessionId");
             console.log(self.sessionId);
-            self.fnProjectList();
+            self.fnProjectList(this.currentSort);
+            self.fnUserInfo();
         }
     });
 
