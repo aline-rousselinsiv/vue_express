@@ -27,9 +27,9 @@ h1#site-name {
     position: absolute;
     left: 400px; 
 }
-main {
-    width: 100%;
+#swup {
     position: relative;
+    width: 100%;
 }
 a{
     text-decoration: none;
@@ -42,12 +42,12 @@ a:visited {
     cursor: pointer;
 }
 #description {
-    font-size: 25px;
     width: 100%;
-    top:350px;
-    left: 300px;
-    transform: translate(-50%, -50%);
-    position: absolute;
+    position: absolute;   /* absolute relative to #swup */
+    top: 300px;           /* adjust vertical position */
+    left: 50%;            /* move to 50% of parent width */
+    transform: translateX(-50%); /* center exactly */
+    font-size: 25px;
 }
 
 /* logout*/
