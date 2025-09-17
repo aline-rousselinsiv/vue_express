@@ -5,17 +5,31 @@ h1#site-name {
     margin: 50px;
     font-size: 60px;
     float: left;
+    position: relative;
 }
 .welcome-page {
     font-family: "Urbanist", sans-serif;
     color: white;
     position: absolute;
 }  
-#login-btn, #signup-btn{
+#login-btn {
     font-size: 18px;
     padding-right: 30px;
     margin-top: 90px;
-    float: left;
+    position: absolute;
+    left: 320px;
+}
+#signup-btn {
+    font-size: 18px;
+    width: 100%;
+    padding-right: 30px;
+    margin-top: 90px;
+    position: absolute;
+    left: 400px; 
+}
+main {
+    width: 100%;
+    position: relative;
 }
 a{
     text-decoration: none;
@@ -29,9 +43,9 @@ a:visited {
 }
 #description {
     font-size: 25px;
-    position: absolute;
+    width: 100%;
     top:350px;
-    left: 50%;
+    left: 300px;
     transform: translate(-50%, -50%);
     position: absolute;
 }
