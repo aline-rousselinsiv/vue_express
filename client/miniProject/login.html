@@ -19,26 +19,14 @@
 </head>
 <body>
     <div id="app">
-        <div id="login">
-            <div class="sign-in">
-                <h2>Login</h2>
-                <div><input id="userId" type="text" placeholder="enter userId" v-model="userId" @keyup.enter="fnLogin"></div>
-                <div><input type="password" placeholder="enter password" v-model="password" @keyup.enter="fnLogin"></div>
-                <button @click="fnLogin">Sign in</button>
+            <div id="login">
+                <div class="sign-in">
+                    <h2>Login</h2>
+                    <div><input id="userId" type="text" placeholder="enter userId" v-model="userId" @keyup.enter="fnLogin"></div>
+                    <div><input type="password" placeholder="enter password" v-model="password" @keyup.enter="fnLogin"></div>
+                    <button @click="fnLogin">Sign in</button>
+                </div>
             </div>
-            
-            <div class="sign-up">
-                <h2>Create Account</h2>
-                <div><input id="userId2" type="text" placeholder="userId" v-model="userId2"></div>
-                <div><input id="name" type="text" placeholder="name" v-model="name"></div>
-                <div><input id="email" type="text" placeholder="email address" v-model="email"></div>
-                <div><input type="password" placeholder="create password" v-model="pwd"></div>
-                <div class="pwd-regex" v-if="warning">* Password must at least include 8 characters.</div>
-                <div><input id="pwd2" type="password" placeholder="confirm password" v-model="pwd2" ref="confirmPwd"></div>
-                <div class="pwd-regex" v-if="warning2">* The password is different.</div>
-                <button @click="fnSignUp">Sign up</button>
-            </div>
-        </div>
     </div>
 </body>
 </html>
@@ -49,14 +37,7 @@
             return {
                 // 변수 - (key : value)
                 userId : "",
-                password : "",
-                userId2 : "",
-                name : "",
-                email : "",
-                pwd : "",
-                pwd2 : "",
-                warning: false,
-                warning2 : false
+                password : ""
             };
         },
         methods: {
@@ -82,63 +63,6 @@
                         }
                     }
                 });
-            },
-            fnSignUp : function (){
-                let self = this;
-                let param = {
-                    userId2 : this.userId2,
-                    name : this.name,
-                    pwd : this.pwd,
-                    email : this.email
-                };
-                if(self.userId2.length == 0){
-                    alert("Enter user ID.");
-                    document.querySelector("#userId2").focus();
-                    return;
-                }
-                if(self.name.length == 0){
-                    alert("Enter name.");
-                    document.querySelector("#name").focus();
-                    return;
-                }
-                if(self.email.length == 0){
-                    alert("Enter email address.");
-                    document.querySelector("#email").focus();
-                    return;
-                }
-                if(self.pwd.length < 8){
-                    self.warning = true;
-                    return;
-                } else {
-                    self.warning = false;
-                    this.$refs.confirmPwd.focus();
-                }
-                if(self.pwd2.length == 0){
-                    alert("Confirm password.");
-                    document.querySelector("#pwd2").focus();
-                    return;
-                }
-                if(self.pwd != self.pwd2){
-                    self.warning2 = true;
-                    return;
-                } else {
-                    self.warning2 = false;
-                }
-                $.ajax({
-                    url: "http://localhost:3009/signup",
-                    dataType: "json",
-                    type: "GET",
-                    data: param,
-                    success: function (data) {
-                        alert("Succesfully signed up !");
-                        self.userId2 = "";
-                        self.name = "";
-                        self.email = "";
-                        self.pwd = "";
-                        self.pwd2 = "";
-                    }
-                });
-                document.querySelector("#userId").focus();
             }
         }, // methods
         mounted() {

@@ -46,7 +46,7 @@
                 </tr>
                 <tr v-for="item in projectList">
                     <td>
-                        <input type="radio" name="selectProject" :value="item.PROJECT_NUM" v-model="selectedProject">
+                        <input type="radio" :value="item.PROJECT_NUM" v-model="selectedProject">
                     </td>
                     <td>
                         <a href="javascript:;" @click="fnViewProject(item.PROJECT_NUM)">{{item.PROJECT_NAME}}</a>
@@ -59,8 +59,8 @@
             </table>
             <div class="pagination">
                 <a class="index" href="javascript:;" v-for="num in index" @click="fnPage(num)">
-                <span v-if="num == page" style="font-weight: bold;">{{num}}</span>
-                <span v-else>{{num}}</span>
+                <div v-if="num == page" style="font-weight: bold;">{{num}}</div>
+                <div v-else>{{num}}</div>
             </a>
             </div>
             <div class="add-project">
@@ -86,7 +86,7 @@
                 sessionId: "",
                 projectList: [],
                 keyword : "",
-                selectedProject: null,
+                selectedProject: [],
                 userInfo: {},
                 currentSort : "latest",
                 index : 0,

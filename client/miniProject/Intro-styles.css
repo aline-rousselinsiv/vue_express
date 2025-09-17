@@ -9,12 +9,12 @@ body {
     font-family: "Urbanist", sans-serif;
     color: white;
 }
-h1 {
+h1#site-name {
     margin: 50px;
     font-size: 60px;
     float: left;
 }  
-#login, #sign-up{
+#login-btn, #signup-btn{
     font-size: 18px;
     padding-right: 30px;
     margin-top: 90px;
@@ -25,9 +25,8 @@ a{
 a:visited {
   color: white;
 }
-#login:hover, #sign-up:hover{
+#login-btn:hover, #sigup-btn:hover{
     font-size: 19px;
-    transition: font-size 0.3s ease-in-out;
     cursor: pointer;
 }
 #description {
