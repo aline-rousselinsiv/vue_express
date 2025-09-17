@@ -636,25 +636,31 @@ app.get('/task/add', async (req, res) => {
 
 
 app.get('/project/delete', async (req, res) => {
-  const { projectNum } = req.query;
+  const { selectedProject } = req.query;
 
   try {
+    let projectNums = Array.isArray(selectedProject) ? selectedProject : [selectedProject];
+    const placeholders = projectNums.map((_, i) => `:${i+1}`).join(", ");
+    const binds = {};
+    projectNums.forEach((num, i) => {
+      binds[`p${i+1}`] = num;
+    });
     await connection.execute(
-      `DELETE FROM TABLE_TASK WHERE PROJECT_NUM = :projectNum`,
-      [projectNum],
-      { autoCommit: true }
+      `DELETE FROM TABLE_TASK WHERE PROJECT_NUM IN (${placeholders})`,
+      projectNums,
+      { autoCommit: false }
     );
     await connection.execute(
-      `DELETE FROM TABLE_PROJECT WHERE PROJECT_NUM = :projectNum`,
-      [projectNum],
+      `DELETE FROM TABLE_PROJECT WHERE PROJECT_NUM IN (${placeholders})`,
+      projectNums,
       { autoCommit: true }
     );
     res.json({
         result : "success"
     });
   } catch (error) {
-    console.error('Error executing insert', error);
-    res.status(500).send('Error executing insert');
+    console.error('Error executing delete', error);
+    res.status(500).send('Error executing delete');
   }
 });
 

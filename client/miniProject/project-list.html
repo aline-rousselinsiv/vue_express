@@ -11,6 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="logout.js"></script>
+    </script>
     <title>My Projects</title>
 </head>
 <body>
@@ -18,7 +19,7 @@
         <div id="logout">
             <button onclick="fnLogout()">logout</button>
         </div>
-        <div id="main">
+        <div id="main" class="transition-main">
             <div class="titles">
                 <h1>MY PROJECTS</h1>
                 <h2>Welcome, {{userInfo.NAME}} !</h2>
@@ -46,7 +47,7 @@
                 </tr>
                 <tr v-for="item in projectList">
                     <td>
-                        <input type="radio" :value="item.PROJECT_NUM" v-model="selectedProject">
+                        <input type="checkbox" :value="item.PROJECT_NUM" v-model="selectedProject">
                     </td>
                     <td>
                         <a href="javascript:;" @click="fnViewProject(item.PROJECT_NUM)">{{item.PROJECT_NAME}}</a>
@@ -145,28 +146,29 @@
             },
             fnAddProject : function(){
                 location.href="Project-add.html";
+                self.fnProjectList(this.currentSort);
             },
-            fnDelete : function (){
+            fnDelete: function(){
                 let self = this;
-                if(!self.selectedProject){
-                    alert("Please select a project first !");
+                if(self.selectedProject.length === 0){
+                    alert("Please select at least one project.");
                     return;
                 }
-                if(!confirm("Deleting project. Do you confirm?"))
+                if(!confirm("Confirm deleting project?")){
                     return;
-
-                let param = {
-                    projectNum : self.selectedProject
-                };
+                }
                 $.ajax({
                     url: "http://localhost:3009/project/delete",
                     dataType: "json",
                     type: "GET",
-                    data: param,
+                    data: { selectedProject : self.selectedProject},
+                    traditional : true,
                     success: function (data) {
-                        alert("Project successfully deleted !");
-                        self.fnProjectList();
-                        self.selectedProject = null;
+                        if(data.result == "success"){
+                            alert("Project deleted !");
+                            self.fnProjectList();
+                            self.selectedProject = [];
+                        }
                     }
                 });
             },
@@ -182,7 +184,7 @@
             // console.log(self.userId);
             this.sessionId = sessionStorage.getItem("sessionId");
             console.log(self.sessionId);
-            self.fnProjectList(this.currentSort);
+            self.fnProjectList();
             self.fnUserInfo();
         }
     });

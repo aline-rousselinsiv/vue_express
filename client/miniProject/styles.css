@@ -9,13 +9,14 @@ h1#site-name {
 .welcome-page {
     font-family: "Urbanist", sans-serif;
     color: white;
-    position: relative;
+    position: absolute;
 }  
 #login-btn, #signup-btn{
     font-size: 18px;
     padding-right: 30px;
     margin-top: 90px;
-    float: left;}
+    float: left;
+}
 a{
     text-decoration: none;
 }
@@ -191,16 +192,15 @@ td{
     border: none;
     background-color: white;
     margin: auto;
-    margin-top: 170px;
     padding-top: 1px;
     border-radius: 4%;
     box-shadow: 0px 2px 20px 2px grey;
     font-family: "Urbanist", sans-serif;
     position: relative;
+    top:200px;
 }
 
 #login .sign-in, #login .sign-up {
-    /* margin-top: 100px; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -385,6 +385,9 @@ input, button{
 #view-project th{
     width: 150px;
 }
+#view-project td{
+    padding-bottom: 0px;
+}
 table[id="tasks"] {
     margin-top: -43px;
     margin-left: 230px;
@@ -398,9 +401,10 @@ table[id="tasks"] td {
 ul li {
     margin-bottom: -10px;
 }
-#delete-cb {
+table input[type="checkbox"] {
     cursor: pointer;
-    font-size: 10px;
+    width: 16px; 
+    height: 16px;
 }
 
 /* edit project page */

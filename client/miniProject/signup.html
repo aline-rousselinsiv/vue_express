@@ -13,12 +13,17 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/swup@4"></script>
     <script>
-        const swup = new Swup();
+        const swup = new Swup({
+            containers: ["#login"]
+        });
     </script>
     <title>Login</title>
 </head>
 <body>
     <div id="app">
+        <div class="welcome-page">
+            <h1 id="site-name">make it</h1>
+        </div>
         <div id="login">
             <div class="sign-up">
                 <h2>Create Account</h2>
@@ -119,6 +124,11 @@
             },
             fnIdCheck : function (){
                 let self = this;
+                if(self.userId2.length == 0){
+                    alert("Enter user ID.");
+                    document.querySelector("#userId2").focus();
+                    return;
+                }
                 $.ajax({
                     url: "http://localhost:3009/idcheck",
                     dataType: "json",

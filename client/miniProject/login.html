@@ -13,20 +13,25 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/swup@4"></script>
     <script>
-        const swup = new Swup();
+        const swup = new Swup({
+            containers: ["#login"]
+        });
     </script>
     <title>Login</title>
 </head>
 <body>
     <div id="app">
-            <div id="login">
-                <div class="sign-in">
-                    <h2>Login</h2>
-                    <div><input id="userId" type="text" placeholder="enter userId" v-model="userId" @keyup.enter="fnLogin"></div>
-                    <div><input type="password" placeholder="enter password" v-model="password" @keyup.enter="fnLogin"></div>
-                    <button @click="fnLogin">Sign in</button>
-                </div>
+        <div class="welcome-page">
+            <h1 id="site-name">make it</h1>
+        </div>
+        <div id="login">
+            <div class="sign-in">
+                <h2>Login</h2>
+                <div><input id="userId" type="text" placeholder="enter userId" v-model="userId" @keyup.enter="fnLogin"></div>
+                <div><input type="password" placeholder="enter password" v-model="password" @keyup.enter="fnLogin"></div>
+                <button @click="fnLogin">Sign in</button>
             </div>
+        </div>
     </div>
 </body>
 </html>
