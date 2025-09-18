@@ -24,14 +24,14 @@ Based on the CRUD model, users can create an account or login and retrieve, modi
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/signup.png" width="400">
 >
 > On the homepage, "login" and "sign up" will take you respectively to the login and sign up page.  
-> Once the user is one either one of those two pages, they can still go back to the homepage by clicking on the site's name ("Make it").  
+> Once the user is on either one of those two pages, they can still go back to the homepage by clicking on the site's name ("Make it").  
 
 ### 2. User’s Projects Overall Overview
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/projectsList.png" width="400">
 > 
-> After login, the user will be able to see the projects you created.  
-> They are displayed from the newest to the oldest project created.  
-> By clicking on "Due Date", the user can rearrange their projects according to the deadline (closest or latest).  
+> After login, the user will be able to see the projects they created. 
+> The projects are displayed from the newest to the oldest by default.
+> By clicking on "Due Date", the user can rearrange and display their projects according to the deadline (closest or latest).  
 > The search bar allows to look for a project through its name, priority or status.  
 
 ### 3. User’s Projects Individual Overview
