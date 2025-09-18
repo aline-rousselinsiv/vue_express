@@ -22,15 +22,35 @@ Based on the CRUD model, users can create an account or login and retrieve, modi
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/homepage.png" width="400">
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/login.png" width="400">
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/signup.png" width="400">
-> On the homepage, "login" and "sign up" will take you respectively to the login and sign up page
 >
+> On the homepage, "login" and "sign up" will take you respectively to the login and sign up page.
 
-> ### 2. New Project
+### 2. User’s Projects Overall Overview
+> <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/projectsList.png" width="400">
+> 
+> After login, you will be able to see the projects you created.
+> They are displayed from the newest to the oldest project created.
+> By clicking on "Due Date", you can rearrange your projects according to the deadline (closest or latest).
+> The search bar allows to look for a project through its name, priority or status.
+
+### 3. User’s Projects Individual Overview
+> <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/projectView.png" width="400">
+> 
+> You can click on the project's name to access the "view project".
+> This page gives you an overview (information) of a project.
+
+### 4. New Project
+> <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/newProject.png" width="400">
 >
-> ### 3. User’s Projects Overall Overview
-> ### 4. User’s Projects Individual Overview
-> ### 5. Project’s Edit
-> ### 6. Delete Project
+> The "add project" page will allow you to create a brand new project.
+> You will be able to select the title, priority, deadline, and insert multiple tasks.
+
+### 5. Project’s Edit
+> <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/projectEdit1.png" width="400">
+> <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/newProject2.png" width="400">
+> 
+> 
+### 6. Delete Project
 ## Resources
 + Icons from FontAwesome
 + Fonts from Google Fonts
@@ -43,4 +63,4 @@ Based on the CRUD model, users can create an account or login and retrieve, modi
 + Others : I considered adding other functions such as a calendar that would display the user’s projects over time.
 
 **Front-End**
-+ I decided to keep the front-end part rather simple and neutral in order to focus on implementing all the different operations learned in class, but I would like to work on a more responsive design such as smoother transitions or swiper functions instead of a “plain” display. I failed on implementing the library Swup as I encountered issues such as “jumpy” effects when transitioning.
++ I decided to keep the front-end part rather simple and neutral in order to focus on implementing all the different CRUD operations learned in class, but I would like to work on a more responsive design such as smoother transitions or swiper functions instead of a “plain” display. I failed on implementing the library Swup as I encountered issues such as “jumpy” effects when transitioning.
