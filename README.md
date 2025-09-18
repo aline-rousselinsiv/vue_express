@@ -19,6 +19,7 @@ Based on the CRUD model, users can create an account or login and retrieve, modi
 2025.09.15 ~ 2025.09.19 (5 days)
 ## Usage
 > ### 1. Login / Sign Up
+> (https://github.com/aline-rousselinsiv/vue_express/blob/main/illustrations/homepage.png)
 > ### 2. New Project
 > ### 3. User’s Projects Overall Overview
 > ### 4. User’s Projects Individual Overview
