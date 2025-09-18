@@ -23,35 +23,41 @@ Based on the CRUD model, users can create an account or login and retrieve, modi
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/login.png" width="400">
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/signup.png" width="400">
 >
-> On the homepage, "login" and "sign up" will take you respectively to the login and sign up page.
+> On the homepage, "login" and "sign up" will take you respectively to the login and sign up page.  
+> Once the user is one either one of those two pages, they can still go back to the homepage by clicking on the site's name ("Make it").  
 
 ### 2. User’s Projects Overall Overview
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/projectsList.png" width="400">
 > 
-> After login, you will be able to see the projects you created.  
-> They are displayed from the newest to the oldest project created.
->
-> By clicking on "Due Date", you can rearrange your projects according to the deadline (closest or latest).
-> The search bar allows to look for a project through its name, priority or status.
+> After login, the user will be able to see the projects you created.  
+> They are displayed from the newest to the oldest project created.  
+> By clicking on "Due Date", the user can rearrange their projects according to the deadline (closest or latest).  
+> The search bar allows to look for a project through its name, priority or status.  
 
 ### 3. User’s Projects Individual Overview
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/projectView.png" width="400">
 > 
-> You can click on the project's name to access the "view project".
-> This page gives you an overview (information) of a project.
+> The user can click on the project's name to access the "view project".  
+> This page displays an overview (information) of the project you clicked on.  
 
 ### 4. New Project
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/newProject.png" width="400">
 >
-> The "add project" page will allow you to create a brand new project.
-> You will be able to select the title, priority, deadline, and insert multiple tasks.
+> The "add project" page will allow the user to create a brand new project.  
+> You will be able to select the title, priority, deadline, and insert multiple tasks.  
 
 ### 5. Project’s Edit
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/projectEdit1.png" width="400">
-> <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/newProject2.png" width="400">
+> <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/projectEdit2.png" width="400">
 > 
-> 
+> The "edit project" page will allow the user to modify their project's name, priority, deadline, tasks.  
+> By clicking on the checkboxes ("completed"), the user will be able to disable the input field and change the tasks' status to "completed".
+> To save the changes, the user will have to click on the button "save changes".  
+
 ### 6. Delete Project
+> <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/deleteProject.png" width="400">
+>
+> After having selected as least one project, the user will be able to delete one or multiple projects at once after confirmation (alert message).  
 ## Resources
 + Icons from FontAwesome
 + Fonts from Google Fonts
