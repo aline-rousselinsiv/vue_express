@@ -101,9 +101,13 @@ Based on the CRUD model, users can create an account or login and retrieve, modi
 *Things I would improve/wish to continue working on:*
 
 **Back-End**
-+ Edit part : it allows the user to change information both related to the project or the tasks, but does not offer the possibility to delete tasks yet.
++ Edit part : it allows the user to edit their projects or tasks but does not offer the possibility to delete tasks yet.
++ **수종 페이지 : 사용자는 프로젝트나 작업을 편집할 수 있지만 아직 작업을 삭제할 수 있는 가능성은 제공하지 않습니다.**
 + Add tasks function : users should be able to add as many tasks as they want but I limited the number of tasks per project to 5 as a test-run. I think I could change that function and modify my frond-end code accordingly.
++ **작업 추가 기능 : 사용자가 원하는 만큼 작업을 추가할 수 있어야 하지만, 테스트 실행을 위해 프로젝트당 작업 수를 5개로 제한했습니다. 그 기능을 변경하고 그에 따라 프론트엔드 코드를 수정할 수 있을 것 같습니다.**
 + Others : I considered adding other functions such as a calendar that would display the user’s projects over time.
++ **기타 : 시간이 지남에 따라 사용자의 프로젝트를 표시하는 캘린더와 같은 다른 기능을 추가하는 것을 고려했습니다.**
 
 **Front-End**
-+ I decided to keep the front-end part rather simple and neutral in order to focus on implementing all the different CRUD operations learned in class, but I would like to work on a more responsive design such as smoother transitions or swiper functions instead of a “plain” display. I failed on implementing the library Swup as I encountered issues such as “jumpy” effects when transitioning.
++ I decided to keep the front-end part rather simple and minimalist in order to focus on implementing all the different CRUD operations learned in class, but I would like to work on a more responsive design such as smoother transitions or swiper functions instead of a “plain” display. I failed on implementing the library Swup as I encountered issues such as “jumpy” effects when transitioning.
++ **수업에서 배운 모든 다양한 CRUD 연산을 구현하는 데 집중하기 위해 프론트엔드 부분을 다소 단순하고 미니멀하게 유지하기로 결정했지만, "심플" 디스플레이 대신 부드러운 전환이나 스위퍼 기능과 같은 더 반응성 있는 디자인으로 작업하고 싶습니다. 전환할 때 "점프" 효과와 같은 문제가 발생하여 라이브러리 Swup을 구현하는 데 실패했습니다.**
