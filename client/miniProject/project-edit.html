@@ -20,7 +20,7 @@
         </div>
         <div id="main">
             <h1>EDIT PROJECT</h1>
-            <div id="new-project">
+            <div id="edit-project">
                 <table>
                     <tr>
                         <th>Priority</th>
@@ -53,13 +53,26 @@
                     </tr>
                     <tr id=task-row >
                         <th>Tasks</th>
-                        <td ></td>
+                        <td >
+                            <div id="add-btn">
+                                    <div id="plus-icon" class="fa-solid fa-plus"></div>
+                                    <button @click="fnAddTask" :disabled="tasks.length >= maxTasks">Add new task</button>
+                            </div>
+                        </td>
                     </tr>
                 </table>
-                <div class="classwrapper">
-                    <div class="editTasks" v-for="item in taskInfo">
-                        <input type="text" v-model="item.TASK_NAME" :disabled="item.STATUS == 'Completed'">
-                        <input type="checkbox" @change="fnTaskComplete(item)" :checked="item.STATUS == 'Completed'"><span>completed</span>
+                <div class="wrapper">
+                    <div class="classwrapper">
+                        <div class="editTasks" v-for="item in taskInfo">
+                            <input type="text" v-model="item.TASK_NAME" :disabled="item.STATUS == 'Completed'">
+                            <input type="checkbox" @change="fnTaskComplete(item)" :checked="item.STATUS == 'Completed'"><span>completed</span>
+                        </div>
+                    </div>
+                </div>      
+                <div class="add-remove">
+                    <div v-for="(task, index) in tasks" :key="index">
+                        <input type="text" placeholder="Enter new task" v-model="task.name" :ref="'taskInput'">
+                        <button @click="fnRemoveTask(index)"><span class="fa-solid fa-trash"></span></button>
                     </div>
                 </div>
                 <div class="create-btn">
@@ -81,7 +94,9 @@
                 dueDate : "",
                 priority : "",
                 sessionId : "",
-                taskInfo : []
+                taskInfo : [],
+                tasks: [],
+                maxTasks : 2
             };
         },
         methods: {
@@ -129,7 +144,8 @@
                 }));
                 let param = {
                     projectInfo : self.projectInfo,
-                    taskInfo : self.taskInfo
+                    taskInfo : self.taskInfo,
+                    newTasks : self.tasks
                 };
                 $.ajax({
                     url: "http://localhost:3009/project/edit",
@@ -153,6 +169,21 @@
                     return;
                 }
                 location.href="project-list.html";
+            },
+            fnAddTask() {
+                let self = this;
+                if (this.tasks.length < this.maxTasks) {
+                    this.tasks.push({ name: "" });
+
+                    this.$nextTick(() => { // nextTick ensures DOM has updated
+                    const inputs = this.$refs.taskInput; // array of input refs
+                    inputs[inputs.length - 1].focus();   // focus the last input
+                    });
+                }
+            },
+            fnRemoveTask: function(index){
+                let self = this;
+                self.tasks.splice(index, 1); // remove by index
             }
         }, // methods
         mounted() {

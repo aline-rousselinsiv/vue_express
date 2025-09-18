@@ -3,5 +3,5 @@ function fnLogout() {
         return;
     }
     sessionStorage.removeItem("sessionId");
-    location.href = "login.html"; // redirect to login page
+    location.href = "Intro-page.html"; // redirect to login page
 }

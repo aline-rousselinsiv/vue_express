@@ -665,7 +665,7 @@ app.get('/project/delete', async (req, res) => {
 });
 
 app.post('/project/edit', async (req, res) => {
-  const { projectInfo, taskInfo } = req.body;
+  const { projectInfo, taskInfo, newTasks, projectNum, taskName } = req.body;
 
   try {
     await connection.execute(
@@ -684,20 +684,32 @@ app.post('/project/edit', async (req, res) => {
     );
 
     for (const task of taskInfo) {
-      await connection.execute(
-        `UPDATE TABLE_TASK `
-        +`SET TASK_NAME = :taskName,` 
-        +`STATUS =:status, `
-        +`UPDATED_AT = SYSDATE `
-        +`WHERE TASK_NUM = :taskNum`,
-        {
-          taskName: task.TASK_NAME,
-          taskNum: task.TASK_NUM,
-          status: task.STATUS
-        }
-      );
-    }
+        await connection.execute(
+          `UPDATE TABLE_TASK `
+          +`SET TASK_NAME = :taskName,` 
+          +`STATUS =:status, `
+          +`UPDATED_AT = SYSDATE `
+          +`WHERE TASK_NUM = :taskNum`,
+          {
+            taskName: task.TASK_NAME,
+            taskNum: task.TASK_NUM,
+            status: task.STATUS
+          }
+        );
+      }
 
+      if(newTasks && newTasks.length > 0){
+        for (const task of newTasks){
+          await connection.execute(
+            `INSERT INTO TABLE_TASK(TASK_NUM, PROJECT_NUM, TASK_NAME, STATUS, CREATED_AT, UPDATED_AT) `
+            +`VALUES (TASK_SEQ.NEXTVAL, :projectNum, :taskName, 'Pending', SYSDATE, SYSDATE)`,
+            {
+              projectNum: projectInfo.PROJECT_NUM,
+              taskName: task.name
+            },
+          );
+        }
+      }
     await connection.commit();
 
     res.json({

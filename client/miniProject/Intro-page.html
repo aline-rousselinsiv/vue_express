@@ -9,9 +9,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/swup@4"></script>
     <script>
-        const swup = new Swup();
+        const swup = new Swup({
+            containers: [".swup-container", "#description"]
+        });
     </script>
     <title>Make it</title>
 </head>
@@ -19,17 +22,21 @@
     <div id="app">
         <div class="welcome-page">
             <h1 id="site-name">make it</h1>
-            <main id="swup" class="transition-main">
-                <span id="login-btn">
-                    <a href="login.html">login</a>
-                </span>
-                <span id="signup-btn">
-                    <a href="signup.html">sign up</a>
-                </span>
-                <div id="description">
-                    let's bring your projects to live
+            <div class="transition-main">
+                <div class="nav-links">
+                    <span id="login-btn">
+                        <a href="login.html">login</a>
+                    </span>
+                    <span id="signup-btn">
+                        <a href="signup.html">sign up</a>
+                    </span>
                 </div>
-            </main>
+            </div>
+        </div>
+        <div id="text-container">
+            <div id="description" class="transition-main">
+                    let's bring your projects to live
+            </div>
         </div>
     </div>
 </body>
