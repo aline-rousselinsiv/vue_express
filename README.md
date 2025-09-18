@@ -29,9 +29,11 @@ Based on the CRUD model, users can create an account or login and retrieve, modi
 + Fonts from Google Fonts
 ## After Project
 *Things I would improve/wish to continue working on:*
+
 **Back-End**
 + Edit part : it allows the user to change information both related to the project or the tasks, but does not offer the possibility to delete tasks yet.
 + Add tasks function : users should be able to add as many tasks as they want but I limited the number of tasks per project to 5 as a test-run. I think I could change that function and modify my frond-end code accordingly.
-+ Others : I considered adding other functions such as a calendar that would display the user’s projects over time.  
++ Others : I considered adding other functions such as a calendar that would display the user’s projects over time.
+
 **Front-End**
 + I decided to keep the front-end part rather simple and neutral in order to focus on implementing all the different operations learned in class, but I would like to work on a more responsive design such as smoother transitions or swiper functions instead of a “plain” display. I failed on implementing the library Swup as I encountered issues such as “jumpy” effects when transitioning.
