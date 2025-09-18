@@ -100,7 +100,8 @@ CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 
 + Icons from FontAwesome
 + Fonts from Google Fonts
 ## After Project - 프로젝트 후기
-*Things I would improve/wish to continue working on:*
+*Things I would like to improve/wish to continue working on:*  
+*개선하고 싶은 점:*
 
 **Back-End**
 + Edit part : it allows the user to edit their projects or tasks but does not offer the possibility to delete tasks yet.
