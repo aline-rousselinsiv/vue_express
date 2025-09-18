@@ -31,7 +31,8 @@ CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/homepage.png" width="400">
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/login.png" width="400">
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/signup.png" width="400">
->
+
+
 > On the homepage, "login" and "sign up" will take you respectively to the login and sign up page.  
 > Once the user is on either one of those two pages, they can still go back to the homepage by clicking on the site's name ("Make it").  
 
@@ -41,7 +42,8 @@ CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 
 
 ### 2. User’s Projects Overall Overview
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/projectsList.png" width="400">
-> 
+
+
 > After login, the user will be able to see the projects they created.    
 > The projects are displayed from the newest to the oldest by default.  
 > By clicking on "Due Date", the user can rearrange and display their projects according to the deadline (closest or latest).  
@@ -57,7 +59,8 @@ CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 
 
 ### 3. User’s Projects Individual Overview
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/projectView.png" width="400">
-> 
+
+
 > The user can click on the project's name to access the "view project".  
 > This page displays an overview (information) of the project you clicked on.  
 
@@ -67,7 +70,8 @@ CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 
 
 ### 4. New Project
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/newProject.png" width="400">
->
+
+
 > The "new project" page will allow the user to create a brand new project.  
 > You will be able to select the title, priority, deadline, and insert multiple tasks. 
 
@@ -79,7 +83,8 @@ CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 
 ### 5. Project’s Edit
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/projectEdit1.png" width="400">
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/projectEdit2.png" width="400">
-> 
+
+
 > The "edit project" page will allow the user to modify their project's name, priority, deadline, tasks.  
 > By clicking on the checkboxes ("completed"), the user will be able to disable the input field and change the tasks' status to "completed".
 > To save the changes, the user will have to click on the button "save changes".  
@@ -91,7 +96,8 @@ CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 
 
 ### 6. Delete Project
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/deleteProject.png" width="400">
->
+
+
 > After having selected as least one project, the user will be able to delete one or multiple projects at once after confirmation (alert message).  
 
 
@@ -105,7 +111,7 @@ CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 
 
 **Back-End**
 + Edit part : it allows the user to edit their projects or tasks but does not offer the possibility to delete tasks yet.
-+ **수종 페이지 : 사용자는 프로젝트나 작업을 편집할 수 있지만 아직 작업을 삭제할 수 있는 가능성은 제공하지 않습니다.**
++ **수정 페이지 : 사용자는 프로젝트나 작업을 편집할 수 있지만 아직 작업을 삭제할 수 있는 가능성은 제공하지 않습니다.**
 + Add tasks function : users should be able to add as many tasks as they want but I limited the number of tasks per project to 5 as a test-run. I think I could change that function and modify my frond-end code accordingly.
 + **작업 추가 기능 : 사용자가 원하는 만큼 작업을 추가할 수 있어야 하지만, 테스트 실행을 위해 프로젝트당 작업 수를 5개로 제한했습니다. 그 기능을 변경하고 그에 따라 프론트엔드 코드를 수정할 수 있을 것 같습니다.**
 + Others : I considered adding other functions such as a calendar that would display the user’s projects over time.
