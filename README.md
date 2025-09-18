@@ -18,9 +18,15 @@ Based on the CRUD model, users can create an account or login and retrieve, modi
 ## Time Period
 2025.09.15 ~ 2025.09.19 (5 days)
 ## Usage
-> ### 1. Login / Sign Up
-> <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/homepage.png" width="400">  
+### 1. Login / Sign Up
+> <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/homepage.png" width="400">
+> <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/login.png" width="400">
+> <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/signup.png" width="400">
+> On the homepage, "login" and "sign up" will take you respectively to the login and sign up page
+>
+
 > ### 2. New Project
+>
 > ### 3. User’s Projects Overall Overview
 > ### 4. User’s Projects Individual Overview
 > ### 5. Project’s Edit
