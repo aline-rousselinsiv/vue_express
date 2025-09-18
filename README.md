@@ -6,10 +6,10 @@ My project was a little different as I decided to build a to-do list system that
 Based on the CRUD model, users can create an account or login and retrieve, modify or delete information from their personal projects or tasks.  
 
 
-**저의 첫 번째 프론트엔드/백엔드 프로젝트입니다.**  
-**이 프로젝트의 목표는 수업에서 배운 백엔드 지식과 프론트엔드 지식을 모두 적용하여 고객 관리 시스템을 만드는 것이었습니다.**  
-**제 프로젝트는 "Make it"이라는 할 일 목록 시스템을 구축하기로 결정하면서 조금 달랐습니다.**  
-**CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 개인 프로젝트나 작업에서 정보를 검색, 수정 또는 삭제할 수 있습니다.**  
+저의 첫 번째 프론트엔드/백엔드 프로젝트입니다.  
+이 프로젝트의 목표는 수업에서 배운 백엔드 지식과 프론트엔드 지식을 모두 적용하여 고객 관리 시스템을 만드는 것이었습니다.  
+제 프로젝트는 "Make it"이라는 할 일 목록 시스템을 구축하기로 결정하면서 조금 달랐습니다.  
+CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 개인 프로젝트나 작업에서 정보를 검색, 수정 또는 삭제할 수 있습니다.  
 
 ## Technologies - 기술
 **Front-End**
@@ -22,8 +22,10 @@ Based on the CRUD model, users can create an account or login and retrieve, modi
 + Express
 + Node.js
 + Oracle
+  
 ## Time Period - 기간
 2025.09.15 ~ 2025.09.19 (5 days)
+
 ## Usage - 사용 방법
 ### 1. Login / Sign Up
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/homepage.png" width="400">
