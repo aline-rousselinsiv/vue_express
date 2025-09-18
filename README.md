@@ -12,3 +12,10 @@ Based on the CRUD model, users can create an account or login and retrieve, modi
 + Figma
 ## Time Period
 2025.09.15 ~ 2025.09.19 (5 days)
+## Usage
+> ### 1. Login / Sign Up
+> ### 2. New Project
+> ### 3. User’s Projects Overall Overview
+> ### 4. User’s Projects Individual Overview
+> ### 5. Project’s Edit
+> ### 6. Delete Project
