@@ -28,8 +28,9 @@ Based on the CRUD model, users can create an account or login and retrieve, modi
 ### 2. User’s Projects Overall Overview
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/projectsList.png" width="400">
 > 
-> After login, you will be able to see the projects you created.
+> After login, you will be able to see the projects you created.  
 > They are displayed from the newest to the oldest project created.
+>
 > By clicking on "Due Date", you can rearrange your projects according to the deadline (closest or latest).
 > The search bar allows to look for a project through its name, priority or status.
 
