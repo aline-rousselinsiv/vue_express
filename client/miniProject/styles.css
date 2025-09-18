@@ -239,16 +239,17 @@ td{
     box-shadow: 0px 2px 20px 2px grey;
     font-family: "Urbanist", sans-serif;
     position: relative;
-    top:200px;
+    top: 200px;
 }
 
 #login .sign-in, #login .sign-up {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
-h2 {
-    text-align: center;
+h2{
+    margin-left: 30px;
 }
 .sign-in input, .sign-up input {
     font-family: "Urbanist", sans-serif;
@@ -273,15 +274,17 @@ h2 {
     height: 35px;
     width: 100px;
     border-radius: 17px;
-    border: 1px solid black;
-    background-color: beige;
+    border: none;
+    color: white;
+    background-color: rgb(90, 90, 90);
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: center;
 }
 .sign-in button:hover, .sign-up button:hover {
-    border: 2px solid black;
     font-size: 14px;
+    height: 35px;
+    width: 102px;
 }
 .sign-in button:active, .sign-up button:active {
     transform: translateY(2px); /* moves button down */
@@ -308,7 +311,11 @@ h2 {
     margin-top: 8px;
     margin-bottom: 5px;
 }
-
+#userId-check button:hover {
+    font-size: 11px;
+    width: 91px;
+    height: 31px;
+}
 /* new project page */
 table{
     font-size: 20px;

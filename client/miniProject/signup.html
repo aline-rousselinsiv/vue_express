@@ -31,7 +31,7 @@
                 <h2>Create Account</h2>
                 <div id="userId-check">
                     <input id="userId2" type="text" placeholder="userId" v-model="userId2">
-                    <button @click="fnIdCheck">ID AVAILABILITY</button>
+                    <button @click="fnIdCheck">ID CHECK</button>
                     <div class="messages" v-if="taken" style="color: red;">ID already taken.</div>
                     <div class="messages" v-else-if="available" style="color: green">ID available.</div>
                 </div>
