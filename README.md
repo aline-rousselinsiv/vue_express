@@ -4,10 +4,12 @@ This is my very first front-end / back-end project.
 The goal of this project was to apply both back-end and front-end knowledge learned in class in order to create a client management system.  
 My project was a little different as I decided to build a to-do list system that I called “Make it”.  
 Based on the CRUD model, users can create an account or login and retrieve, modify or delete information from their personal projects or tasks.  
-저의 첫 번째 프론트엔드/백엔드 프로젝트입니다.  
-이 프로젝트의 목표는 수업에서 배운 백엔드 지식과 프론트엔드 지식을 모두 적용하여 고객 관리 시스템을 만드는 것이었습니다.  
-제 프로젝트는 "Make it"이라는 할 일 목록 시스템을 구축하기로 결정하면서 조금 달랐습니다.  
-CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 개인 프로젝트나 작업에서 정보를 검색, 수정 또는 삭제할 수 있습니다.  
+
+
+**저의 첫 번째 프론트엔드/백엔드 프로젝트입니다.**  
+**이 프로젝트의 목표는 수업에서 배운 백엔드 지식과 프론트엔드 지식을 모두 적용하여 고객 관리 시스템을 만드는 것이었습니다.**  
+**제 프로젝트는 "Make it"이라는 할 일 목록 시스템을 구축하기로 결정하면서 조금 달랐습니다.**  
+**CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 개인 프로젝트나 작업에서 정보를 검색, 수정 또는 삭제할 수 있습니다.**  
 
 ## Technologies - 기술
 **Front-End**
@@ -22,7 +24,7 @@ CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 
 + Oracle
 ## Time Period - 기간
 2025.09.15 ~ 2025.09.19 (5 days)
-## Usage
+## Usage - 사용 방법
 ### 1. Login / Sign Up
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/homepage.png" width="400">
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/login.png" width="400">
@@ -30,6 +32,8 @@ CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 
 >
 > On the homepage, "login" and "sign up" will take you respectively to the login and sign up page.  
 > Once the user is on either one of those two pages, they can still go back to the homepage by clicking on the site's name ("Make it").  
+
+
 > **홈페이지에서 "로그인"과 "가입"은 각각 로그인 페이지와 가입 페이지로 이동합니다.**  
 > **사용자가 두 페이지 중 하나에 접속하면, 사이트 이름("Make it")을 클릭하여 홈페이지로 돌아갈 수 있습니다.**  
 
@@ -41,6 +45,8 @@ CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 
 > By clicking on "Due Date", the user can rearrange and display their projects according to the deadline (closest or latest).  
 > The search bar allows to look for a project through its name, priority or status.  
 > The user can logout at anytime by clicking on the "logout" button on the right top corner of the page.  
+
+
 > **로그인 후 사용자는 자신이 만든 프로젝트를 볼 수 있습니다.**  
 > **프로젝트는 기본적으로 최신 프로젝트부터 가장 오래된 프로젝트까지 표시됩니다.**  
 > **사용자는 "Due Date" (마감 시간)을 클릭하여 마감일(가까운 날짜 또는 최근 날짜)에 맞춰 프로젝트를 재배열하고 표시할 수 있습니다.**  
@@ -52,6 +58,8 @@ CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 
 > 
 > The user can click on the project's name to access the "view project".  
 > This page displays an overview (information) of the project you clicked on.  
+
+
 > **사용자는 프로젝트 이름을 클릭하여 "보기 프로젝트"에 액세스할 수 있습니다.**  
 > **이 페이지에는 클릭한 프로젝트의 개요(정보)가 표시됩니다.**  
 
@@ -59,7 +67,9 @@ CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/newProject.png" width="400">
 >
 > The "new project" page will allow the user to create a brand new project.  
-> You will be able to select the title, priority, deadline, and insert multiple tasks.  
+> You will be able to select the title, priority, deadline, and insert multiple tasks. 
+
+
 > **사용자는 "new project" (새 프로젝트) 페이지를 통해 새로운 프로젝트를 만들 수 있습니다.**  
 > **제목, 우선순위, 마감일을 선택하고 여러 작업을 삽입할 수 있습니다.**  
 
@@ -71,6 +81,8 @@ CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 
 > The "edit project" page will allow the user to modify their project's name, priority, deadline, tasks.  
 > By clicking on the checkboxes ("completed"), the user will be able to disable the input field and change the tasks' status to "completed".
 > To save the changes, the user will have to click on the button "save changes".  
+
+
 > **"edit project" (프로젝트 수정) 페이지에서는 사용자가 프로젝트 이름, 우선순위, 마감일, 작업을 수정할 수 있습니다.**  
 > **체크박스("completed")을 클릭하면 사용자는 입력 필드를 비활성화하고 작업 상태를 "완료됨"으로 변경할 수 있습니다.**   
 > **변경 사항을 저장하려면 사용자가 "변경 사항 저장" 버튼을 클릭해야 합니다.**  
@@ -79,11 +91,13 @@ CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 
 > <img src="https://raw.githubusercontent.com/aline-rousselinsiv/vue_express/main/illustrations/deleteProject.png" width="400">
 >
 > After having selected as least one project, the user will be able to delete one or multiple projects at once after confirmation (alert message).  
+
+
 > **하나 이상의 프로젝트를 선택한 후, 사용자는 확인(알림 메시지) 후 한 번에 하나 또는 여러 프로젝트를 삭제할 수 있습니다.**  
-## Resources
+## Resources - 자료
 + Icons from FontAwesome
 + Fonts from Google Fonts
-## After Project
+## After Project - 프로젝트 후기
 *Things I would improve/wish to continue working on:*
 
 **Back-End**
