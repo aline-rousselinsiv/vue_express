@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="logout.js"></script>
     <title>Edit Project</title>
 </head>
@@ -48,7 +50,7 @@
                     <tr>
                         <th>Due Date</th>
                         <td>
-                            <input type="date" v-model="projectInfo.DUEDATE">
+                            <input ref="datepicker" type="date" v-model="projectInfo.DUEDATE">
                         </td>
                     </tr>
                     <tr id=task-row >
@@ -60,7 +62,7 @@
                             </div>
                         </td>
                     </tr>
-                </table>
+                </table> 
                 <div class="wrapper">
                     <div class="classwrapper">
                         <div class="editTasks" v-for="item in taskInfo">
@@ -189,6 +191,10 @@
         mounted() {
             // 처음 시작할 때 실행되는 부분
             let self = this;
+            flatpickr(this.$refs.datepicker, {
+                dateFormat: "Y-m-d",
+                allowInput: true, // user can type or pick
+            });
             this.sessionId = sessionStorage.getItem("sessionId");
             console.log(self.sessionId);
             const queryParams = new URLSearchParams(window.location.search);
