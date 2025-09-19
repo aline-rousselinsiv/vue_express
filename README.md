@@ -110,6 +110,8 @@ CRUD 모델을 기반으로 사용자는 계정이나 로그인을 생성하고 
 *개선하고 싶은 점:*
 
 **Back-End**
++ Toggle button : a toggle button will be added and will allow the user to change the status of a whole project to "completed".
++ **토글 버튼: 토글 버튼이 추가되어 사용자가 전체 프로젝트의 상태를 "완료"로 변경할 수 있습니다.**
 + Edit part : it allows the user to edit their projects or tasks but does not offer the possibility to delete tasks yet.
 + **수정 페이지 : 사용자는 프로젝트나 작업을 편집할 수 있지만 아직 작업을 삭제할 수 있는 가능성은 제공하지 않습니다.**
 + Add tasks function : users should be able to add as many tasks as they want but I limited the number of tasks per project to 5 as a test-run. I think I could change that function and modify my frond-end code accordingly.
