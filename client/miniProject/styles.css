@@ -354,6 +354,57 @@ label {
     align-items: center;
     gap: 20px;
 }
+input[type="checkbox"].toggle {
+  opacity: 0;
+}
+input[type="checkbox"].toggle + label {
+  position: relative;
+  margin-left: 670px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+input[type="checkbox"].toggle + label::before {
+  content: "";
+  width: 55px;
+  height: 25px;
+  background-color: #eeecec;
+  border-radius: 15px;
+  border: 1px solid black;
+  transition: background-color 200ms ease-in-out;
+}
+
+input[type="checkbox"].toggle + label::after {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  content: "";
+  left: 7px;
+  width: 19px;
+  height: 19px;
+  background-color: black;
+  border-radius: 50%;
+  transition: background-color 200ms ease-in-out, transform 200ms ease-in-out;
+}
+
+input[type="checkbox"].toggle:checked + label::before {
+  background-color:#777;
+}
+
+input[type="checkbox"].toggle:checked + label::after {
+  content:"" ;
+  transform: translateX(150%);
+}
+.create-btn #note{
+    position: relative;
+    margin-top: 50px;
+    margin-bottom: 0px;
+    margin-left: 670px ;
+    font-size: 12px;
+}
 .create-btn input{
     font-family: "Urbanist", sans-serif;
     font-size: 15px;

@@ -78,6 +78,9 @@
                     </div>
                 </div>
                 <div class="create-btn">
+                    <div id="note">(Project completed toggle button)</div>
+                    <input @click="fnToggle" checked type="checkbox" id="check1" class="toggle">
+                    <label for="check1"></label>
                     <input type="button" value="Save Changes" @click="fnSaveChanges">
                     <button @click="fnBackToList">Back to list</button>
                 </div>
@@ -186,6 +189,9 @@
             fnRemoveTask: function(index){
                 let self = this;
                 self.tasks.splice(index, 1); // remove by index
+            },
+            fnToggle : function(){
+                alert("🚧Toggle button coming soon !🚧");
             }
         }, // methods
         mounted() {
